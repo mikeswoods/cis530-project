@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
 
-USE_ANNOTATORS = ['tokenize','ssplit', 'pos', 'lemma', 'ner', 'sentiment', 'depparse', 'relation']
+USE_ANNOTATORS = ['tokenize','ssplit', 'pos', 'lemma', 'ner', 'parse', 'sentiment', 'relation']
 
 def create_CoreNLP_trainxml():
 	"""
