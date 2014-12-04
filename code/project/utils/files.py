@@ -2,7 +2,8 @@ import re
 import tempfile
 import os
 import sys
-from os.path import dirname, join, abspath
+from os import listdir, remove, walk, getcwd, chdir
+from os.path import dirname, join, realpath, expanduser, isdir, isfile
 from itertools import chain
 from contextlib import contextmanager
 
@@ -19,7 +20,8 @@ def resolve(*parts):
 
         "/Users/mike/src/school/cis530-project/data/text"
     """
-    return None if len(parts) == 0 else abspath(reduce(join, parts[1:], parts[0]))
+    return None if len(parts) == 0 \
+                else realpath(reduce(join, parts[1:], expanduser(parts[0])))
 
 
 def get_files(directory):
@@ -29,8 +31,8 @@ def get_files(directory):
     @param str directory The directory to list the files of
     @returns [str]
     """
-    return [os.path.join(directory, d) for d in os.listdir(directory) \
-                                       if os.path.isfile(os.path.join(directory, d))]
+    return [join(directory, d) for d in listdir(directory) \
+                               if isfile(join(directory, d))]
 
 
 def get_sub_dirs(directory):
@@ -40,8 +42,8 @@ def get_sub_dirs(directory):
     @param str directory The directory to list the subdirectories of
     @returns [str]
     """
-    return [os.path.join(directory, d) for d in os.listdir(directory) \
-                                       if os.path.isdir(os.path.join(directory, d))]
+    return [join(directory, d) for d in listdir(directory) \
+                               if isdir(join(directory, d))]
 
 
 def get_all_files(directory):
@@ -53,9 +55,9 @@ def get_all_files(directory):
     input directory
     """
     listing = []
-    for (root,_,files) in os.walk(directory):
+    for (root,_,files) in walk(directory):
         for f in files:
-            listing.append(os.path.join(root,f))
+            listing.append(join(root,f))
     return sorted(listing)
 
 
@@ -77,7 +79,7 @@ def read_file(input_file):
 
 
 @contextmanager
-def switch_dir(directory):
+def cd(directory):
     """
     context manager to switch to another directory temporarily
 
@@ -86,10 +88,10 @@ def switch_dir(directory):
     with switch_dir("/switch/to/this/dir") as old_dir:
         ...
     """
-    pwd = os.getcwd()
-    os.chdir(directory)
+    pwd = getcwd()
+    chdir(directory)
     yield pwd
-    os.chdir(pwd)
+    chdir(pwd)
 
 
 def ls(file_or_directory):
@@ -100,13 +102,13 @@ def ls(file_or_directory):
 
     @returns [str]
     """
-    if os.path.isfile(file_or_directory):
+    if isfile(file_or_directory):
         return [file_or_directory]
     else:
-        return sorted([os.path.join(file_or_directory, f) for f in os.listdir(file_or_directory)])
+        return sorted([join(file_or_directory, f) for f in listdir(file_or_directory)])
 
 
-def lines(input_file):
+def from_lines(input_file):
     """
     Returns all lines in the given file, where input_file is a filename or
     a file object
@@ -119,3 +121,65 @@ def lines(input_file):
         with open(input_file) as f:
             return map(lambda s: s.strip(), f.readlines())
 
+
+def to_lines(items):
+    """
+    Given a list of strings, this function produces a single string separated
+    by newline characters
+    """
+    return "\n".join(items)+"\n"
+
+
+def read(from_file):
+    """
+    Reads the contents of from_file to a string, returning the results
+
+    @param str|file from_file
+    @returns str
+    """
+    if isinstance(from_file, file):
+        return from_file.read()
+    else:
+        with open(from_file, 'r') as f:
+            contents = f.read()
+            f.close()
+            return contents
+
+
+def write(to_file, contents, append=True):
+    """
+    Writes contents to the file to_file, appending if append=True
+
+    @param str|file to_file
+    @param str contents
+    @param bool append=True
+    """
+    if isinstance(to_file, file):
+        to_file.write(contents)
+    else:
+        with open(to_file, 'a' if append else 'w+') as f:
+            f.write(contents)
+            f.close()
+
+
+def write_temp_file(contents, directory=None):
+    """
+    Writes contents to a a temporary file optionally created in directory dir,
+    returning the name of the temp file
+    """
+    (_,name) = tempfile.mkstemp(dir=directory)
+    with open(name, 'w') as f:
+        f.write(contents)
+        f.close()
+    return name
+
+
+@contextmanager
+def write_temp(contents):
+    """
+    Like write_temp_file, but works in the context of the context manager,
+    deleting the temporary file at the end of the block
+    """
+    temp_file = write_temp_file(contents)
+    yield temp_file
+    remove(temp_file)

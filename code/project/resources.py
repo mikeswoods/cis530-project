@@ -1,5 +1,5 @@
 from os.path import dirname
-from project.utils.files import resolve, get_files, lines
+from project.utils.files import resolve, get_files, from_lines
 
 ################################################################################
 # Paths to all training resources, configuration default, 
@@ -25,7 +25,7 @@ def train_data_labels():
     """
     def process(filename, label, score):
         return (filename, int(label), float(score))
-    return map(lambda line: process(*(line.split())), lines(text_train_labels))
+    return map(lambda line: process(*(line.split())), from_lines(text_train_labels))
 
 
 def test_data_files():
