@@ -46,5 +46,4 @@ def create_CoreNLP_test_xml():
 
 if __name__ == "__main__":
 
-	create_CoreNLP_trainxml()
 	create_CoreNLP_test_xml()

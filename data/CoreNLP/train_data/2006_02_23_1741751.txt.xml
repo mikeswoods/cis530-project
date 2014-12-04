@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="CoreNLP-to-HTML.xsl" type="text/xsl"?>
+<root>
+  <document>
+    <sentences>
+      <sentence id="1" sentimentValue="1" sentiment="Negative">
+        <tokens>
+          <token id="1">
+            <word>FOR</word>
+            <lemma>for</lemma>
+            <CharacterOffsetBegin>0</CharacterOffsetBegin>
+            <CharacterOffsetEnd>3</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="2">
+            <word>several</word>
+            <lemma>several</lemma>
+            <CharacterOffsetBegin>4</CharacterOffsetBegin>
+            <CharacterOffsetEnd>11</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>DURATION</NER>
+            <NormalizedNER>PXY</NormalizedNER>
+            <Timex tid="t1" type="DURATION">PXY</Timex>
+          </token>
+          <token id="3">
+            <word>years</word>
+            <lemma>year</lemma>
+            <CharacterOffsetBegin>12</CharacterOffsetBegin>
+            <CharacterOffsetEnd>17</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>DURATION</NER>
+            <NormalizedNER>PXY</NormalizedNER>
+            <Timex tid="t1" type="DURATION">PXY</Timex>
+          </token>
+          <token id="4">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>17</CharacterOffsetBegin>
+            <CharacterOffsetEnd>18</CharacterOffsetEnd>
+            <POS>,</POS>
+            <NER>O</NER>
+          </token>
+          <token id="5">
+            <word>Craigslist.org</word>
+            <lemma>Craigslist.org</lemma>
+            <CharacterOffsetBegin>19</CharacterOffsetBegin>
+            <CharacterOffsetEnd>33</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>PERSON</NER>
+          </token>
+          <token id="6">
+            <word>has</word>
+            <lemma>have</lemma>
+            <CharacterOffsetBegin>34</CharacterOffsetBegin>
+            <CharacterOffsetEnd>37</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="7">
+            <word>been</word>
+            <lemma>be</lemma>
+            <CharacterOffsetBegin>38</CharacterOffsetBegin>
+            <CharacterOffsetEnd>42</CharacterOffsetEnd>
+            <POS>VBN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="8">
+            <word>aggressively</word>
+            <lemma>aggressively</lemma>
+            <CharacterOffsetBegin>43</CharacterOffsetBegin>
+            <CharacterOffsetEnd>55</CharacterOffsetEnd>
+            <POS>RB</POS>
+            <NER>O</NER>
+          </token>
+          <token id="9">
+            <word>taking</word>
+            <lemma>take</lemma>
+            <CharacterOffsetBegin>56</CharacterOffsetBegin>
+            <CharacterOffsetEnd>62</CharacterOffsetEnd>
+            <POS>VBG</POS>
+            <NER>O</NER>
+          </token>
+          <token id="10">
+            <word>classified</word>
+            <lemma>classified</lemma>
+            <CharacterOffsetBegin>63</CharacterOffsetBegin>
+            <CharacterOffsetEnd>73</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="11">
+            <word>advertising</word>
+            <lemma>advertising</lemma>
+            <CharacterOffsetBegin>74</CharacterOffsetBegin>
+            <CharacterOffsetEnd>85</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="12">
+            <word>from</word>
+            <lemma>from</lemma>
+            <CharacterOffsetBegin>86</CharacterOffsetBegin>
+            <CharacterOffsetEnd>90</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="13">
+            <word>newspapers</word>
+            <lemma>newspaper</lemma>
+            <CharacterOffsetBegin>91</CharacterOffsetBegin>
+            <CharacterOffsetEnd>101</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="14">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>101</CharacterOffsetBegin>
+            <CharacterOffsetEnd>102</CharacterOffsetEnd>
+            <POS>.</POS>
+            <NER>O</NER>
+          </token>
+        </tokens>
+        <parse>(ROOT (S (PP (IN FOR) (NP (JJ several) (NNS years))) (, ,) (NP (NNP Craigslist.org)) (VP (VBZ has) (VP (VBN been) (VP (ADVP (RB aggressively)) (VBG taking) (NP (JJ classified) (NN advertising)) (PP (IN from) (NP (NNS newspapers)))))) (. .))) </parse>
+        <dependencies type="basic-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">taking</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="9">taking</governor>
+            <dependent idx="1">FOR</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="3">years</governor>
+            <dependent idx="2">several</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="1">FOR</governor>
+            <dependent idx="3">years</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">taking</governor>
+            <dependent idx="5">Craigslist.org</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="6">has</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="7">been</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="9">taking</governor>
+            <dependent idx="8">aggressively</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="11">advertising</governor>
+            <dependent idx="10">classified</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="9">taking</governor>
+            <dependent idx="11">advertising</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="9">taking</governor>
+            <dependent idx="12">from</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="12">from</governor>
+            <dependent idx="13">newspapers</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">taking</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="3">years</governor>
+            <dependent idx="2">several</dependent>
+          </dep>
+          <dep type="prep_for">
+            <governor idx="9">taking</governor>
+            <dependent idx="3">years</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">taking</governor>
+            <dependent idx="5">Craigslist.org</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="6">has</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="7">been</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="9">taking</governor>
+            <dependent idx="8">aggressively</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="11">advertising</governor>
+            <dependent idx="10">classified</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="9">taking</governor>
+            <dependent idx="11">advertising</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="9">taking</governor>
+            <dependent idx="13">newspapers</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-ccprocessed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">taking</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="3">years</governor>
+            <dependent idx="2">several</dependent>
+          </dep>
+          <dep type="prep_for">
+            <governor idx="9">taking</governor>
+            <dependent idx="3">years</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">taking</governor>
+            <dependent idx="5">Craigslist.org</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="6">has</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="9">taking</governor>
+            <dependent idx="7">been</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="9">taking</governor>
+            <dependent idx="8">aggressively</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="11">advertising</governor>
+            <dependent idx="10">classified</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="9">taking</governor>
+            <dependent idx="11">advertising</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="9">taking</governor>
+            <dependent idx="13">newspapers</dependent>
+          </dep>
+        </dependencies>
+        <MachineReading>
+          <entities>
+            <entity id="EntityMention-13608">O
+              <span start="2" end="3"/>
+              <probabilities/>
+            </entity>
+            <entity id="EntityMention-13609">PEOPLE
+              <span start="4" end="5"/>
+              <probabilities/>
+            </entity>
+          </entities>
+          <relations>
+            <relation id="RelationMention-45738">Located_In
+              <arguments>
+                <entity id="EntityMention-13609">PEOPLE
+                  <span start="4" end="5"/>
+                  <probabilities/>
+                </entity>
+                <entity id="EntityMention-13608">O
+                  <span start="2" end="3"/>
+                  <probabilities/>
+                </entity>
+              </arguments>
+              <probabilities>
+                <probability>
+                  <label>Located_In</label>
+                  <value>0.5865954884134651</value>
+                </probability>
+                <probability>
+                  <label>_NR</label>
+                  <value>0.33929647223903375</value>
+                </probability>
+                <probability>
+                  <label>Work_For</label>
+                  <value>0.028974324530579874</value>
+                </probability>
+                <probability>
+                  <label>Live_In</label>
+                  <value>0.02837338605567611</value>
+                </probability>
+                <probability>
+                  <label>OrgBased_In</label>
+                  <value>0.0167603287612451</value>
+                </probability>
+              </probabilities>
+            </relation>
+          </relations>
+        </MachineReading>
+      </sentence>
+      <sentence id="2" sentimentValue="2" sentiment="Neutral">
+        <tokens>
+          <token id="1">
+            <word>Now</word>
+            <lemma>now</lemma>
+            <CharacterOffsetBegin>103</CharacterOffsetBegin>
+            <CharacterOffsetEnd>106</CharacterOffsetEnd>
+            <POS>RB</POS>
+            <NER>DATE</NER>
+            <NormalizedNER>PRESENT_REF</NormalizedNER>
+            <Timex tid="t2" type="DATE">PRESENT_REF</Timex>
+          </token>
+          <token id="2">
+            <word>Craigslist</word>
+            <lemma>Craigslist</lemma>
+            <CharacterOffsetBegin>107</CharacterOffsetBegin>
+            <CharacterOffsetEnd>117</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="3">
+            <word>is</word>
+            <lemma>be</lemma>
+            <CharacterOffsetBegin>118</CharacterOffsetBegin>
+            <CharacterOffsetEnd>120</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="4">
+            <word>the</word>
+            <lemma>the</lemma>
+            <CharacterOffsetBegin>121</CharacterOffsetBegin>
+            <CharacterOffsetEnd>124</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="5">
+            <word>one</word>
+            <lemma>one</lemma>
+            <CharacterOffsetBegin>125</CharacterOffsetBegin>
+            <CharacterOffsetEnd>128</CharacterOffsetEnd>
+            <POS>CD</POS>
+            <NER>NUMBER</NER>
+            <NormalizedNER>1.0</NormalizedNER>
+          </token>
+          <token id="6">
+            <word>under</word>
+            <lemma>under</lemma>
+            <CharacterOffsetBegin>129</CharacterOffsetBegin>
+            <CharacterOffsetEnd>134</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="7">
+            <word>attack</word>
+            <lemma>attack</lemma>
+            <CharacterOffsetBegin>135</CharacterOffsetBegin>
+            <CharacterOffsetEnd>141</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="8">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>141</CharacterOffsetBegin>
+            <CharacterOffsetEnd>142</CharacterOffsetEnd>
+            <POS>.</POS>
+            <NER>O</NER>
+          </token>
+        </tokens>
+        <parse>(ROOT (S (ADVP (RB Now)) (NP (NNP Craigslist)) (VP (VBZ is) (NP (NP (DT the) (CD one)) (PP (IN under) (NP (NN attack))))) (. .))) </parse>
+        <dependencies type="basic-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="5">one</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="5">one</governor>
+            <dependent idx="1">Now</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="5">one</governor>
+            <dependent idx="2">Craigslist</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="5">one</governor>
+            <dependent idx="3">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="5">one</governor>
+            <dependent idx="4">the</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="5">one</governor>
+            <dependent idx="6">under</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="6">under</governor>
+            <dependent idx="7">attack</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="5">one</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="5">one</governor>
+            <dependent idx="1">Now</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="5">one</governor>
+            <dependent idx="2">Craigslist</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="5">one</governor>
+            <dependent idx="3">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="5">one</governor>
+            <dependent idx="4">the</dependent>
+          </dep>
+          <dep type="prep_under">
+            <governor idx="5">one</governor>
+            <dependent idx="7">attack</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-ccprocessed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="5">one</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="5">one</governor>
+            <dependent idx="1">Now</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="5">one</governor>
+            <dependent idx="2">Craigslist</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="5">one</governor>
+            <dependent idx="3">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="5">one</governor>
+            <dependent idx="4">the</dependent>
+          </dep>
+          <dep type="prep_under">
+            <governor idx="5">one</governor>
+            <dependent idx="7">attack</dependent>
+          </dep>
+        </dependencies>
+        <MachineReading>
+          <entities>
+            <entity id="EntityMention-13610">O
+              <span start="0" end="1"/>
+              <probabilities/>
+            </entity>
+            <entity id="EntityMention-13611">O
+              <span start="4" end="5"/>
+              <probabilities/>
+            </entity>
+          </entities>
+          <relations/>
+        </MachineReading>
+      </sentence>
+    </sentences>
+  </document>
+</root>

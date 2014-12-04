@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="CoreNLP-to-HTML.xsl" type="text/xsl"?>
+<root>
+  <document>
+    <sentences>
+      <sentence id="1" sentimentValue="1" sentiment="Negative">
+        <tokens>
+          <token id="1">
+            <word>Camera</word>
+            <lemma>camera</lemma>
+            <CharacterOffsetBegin>0</CharacterOffsetBegin>
+            <CharacterOffsetEnd>6</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="2">
+            <word>phones</word>
+            <lemma>phone</lemma>
+            <CharacterOffsetBegin>7</CharacterOffsetBegin>
+            <CharacterOffsetEnd>13</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="3">
+            <word>are</word>
+            <lemma>be</lemma>
+            <CharacterOffsetBegin>14</CharacterOffsetBegin>
+            <CharacterOffsetEnd>17</CharacterOffsetEnd>
+            <POS>VBP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="4">
+            <word>handy</word>
+            <lemma>handy</lemma>
+            <CharacterOffsetBegin>18</CharacterOffsetBegin>
+            <CharacterOffsetEnd>23</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="5">
+            <word>for</word>
+            <lemma>for</lemma>
+            <CharacterOffsetBegin>24</CharacterOffsetBegin>
+            <CharacterOffsetEnd>27</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="6">
+            <word>taking</word>
+            <lemma>take</lemma>
+            <CharacterOffsetBegin>28</CharacterOffsetBegin>
+            <CharacterOffsetEnd>34</CharacterOffsetEnd>
+            <POS>VBG</POS>
+            <NER>O</NER>
+          </token>
+          <token id="7">
+            <word>photos</word>
+            <lemma>photo</lemma>
+            <CharacterOffsetBegin>35</CharacterOffsetBegin>
+            <CharacterOffsetEnd>41</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="8">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>41</CharacterOffsetBegin>
+            <CharacterOffsetEnd>42</CharacterOffsetEnd>
+            <POS>,</POS>
+            <NER>O</NER>
+          </token>
+          <token id="9">
+            <word>but</word>
+            <lemma>but</lemma>
+            <CharacterOffsetBegin>43</CharacterOffsetBegin>
+            <CharacterOffsetEnd>46</CharacterOffsetEnd>
+            <POS>CC</POS>
+            <NER>O</NER>
+          </token>
+          <token id="10">
+            <word>not</word>
+            <lemma>not</lemma>
+            <CharacterOffsetBegin>47</CharacterOffsetBegin>
+            <CharacterOffsetEnd>50</CharacterOffsetEnd>
+            <POS>RB</POS>
+            <NER>O</NER>
+          </token>
+          <token id="11">
+            <word>so</word>
+            <lemma>so</lemma>
+            <CharacterOffsetBegin>51</CharacterOffsetBegin>
+            <CharacterOffsetEnd>53</CharacterOffsetEnd>
+            <POS>RB</POS>
+            <NER>O</NER>
+          </token>
+          <token id="12">
+            <word>handy</word>
+            <lemma>handy</lemma>
+            <CharacterOffsetBegin>54</CharacterOffsetBegin>
+            <CharacterOffsetEnd>59</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="13">
+            <word>for</word>
+            <lemma>for</lemma>
+            <CharacterOffsetBegin>60</CharacterOffsetBegin>
+            <CharacterOffsetEnd>63</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="14">
+            <word>showing</word>
+            <lemma>show</lemma>
+            <CharacterOffsetBegin>64</CharacterOffsetBegin>
+            <CharacterOffsetEnd>71</CharacterOffsetEnd>
+            <POS>VBG</POS>
+            <NER>O</NER>
+          </token>
+          <token id="15">
+            <word>them</word>
+            <lemma>they</lemma>
+            <CharacterOffsetBegin>72</CharacterOffsetBegin>
+            <CharacterOffsetEnd>76</CharacterOffsetEnd>
+            <POS>PRP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="16">
+            <word>off</word>
+            <lemma>off</lemma>
+            <CharacterOffsetBegin>77</CharacterOffsetBegin>
+            <CharacterOffsetEnd>80</CharacterOffsetEnd>
+            <POS>RP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="17">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>80</CharacterOffsetBegin>
+            <CharacterOffsetEnd>81</CharacterOffsetEnd>
+            <POS>.</POS>
+            <NER>O</NER>
+          </token>
+        </tokens>
+        <parse>(ROOT (S (NP (NN Camera) (NNS phones)) (VP (VBP are) (ADJP (ADJP (JJ handy) (PP (IN for) (S (VP (VBG taking) (NP (NNS photos)))))) (, ,) (CC but) (RB not) (ADJP (RB so) (JJ handy) (PP (IN for) (S (VP (VBG showing) (NP (PRP them)) (PRT (RP off)))))))) (. .))) </parse>
+        <dependencies type="basic-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="4">handy</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="2">phones</governor>
+            <dependent idx="1">Camera</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="4">handy</governor>
+            <dependent idx="2">phones</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="4">handy</governor>
+            <dependent idx="3">are</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="4">handy</governor>
+            <dependent idx="5">for</dependent>
+          </dep>
+          <dep type="pcomp">
+            <governor idx="5">for</governor>
+            <dependent idx="6">taking</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="6">taking</governor>
+            <dependent idx="7">photos</dependent>
+          </dep>
+          <dep type="cc">
+            <governor idx="4">handy</governor>
+            <dependent idx="9">but</dependent>
+          </dep>
+          <dep type="conj">
+            <governor idx="4">handy</governor>
+            <dependent idx="10">not</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="12">handy</governor>
+            <dependent idx="11">so</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="4">handy</governor>
+            <dependent idx="12">handy</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="12">handy</governor>
+            <dependent idx="13">for</dependent>
+          </dep>
+          <dep type="pcomp">
+            <governor idx="13">for</governor>
+            <dependent idx="14">showing</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="14">showing</governor>
+            <dependent idx="15">them</dependent>
+          </dep>
+          <dep type="prt">
+            <governor idx="14">showing</governor>
+            <dependent idx="16">off</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="4">handy</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="2">phones</governor>
+            <dependent idx="1">Camera</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="4">handy</governor>
+            <dependent idx="2">phones</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="4">handy</governor>
+            <dependent idx="3">are</dependent>
+          </dep>
+          <dep type="prepc_for">
+            <governor idx="4">handy</governor>
+            <dependent idx="6">taking</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="6">taking</governor>
+            <dependent idx="7">photos</dependent>
+          </dep>
+          <dep type="conj_but">
+            <governor idx="4">handy</governor>
+            <dependent idx="10">not</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="12">handy</governor>
+            <dependent idx="11">so</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="4">handy</governor>
+            <dependent idx="12">handy</dependent>
+          </dep>
+          <dep type="prepc_for">
+            <governor idx="12">handy</governor>
+            <dependent idx="14">showing</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="14">showing</governor>
+            <dependent idx="15">them</dependent>
+          </dep>
+          <dep type="prt">
+            <governor idx="14">showing</governor>
+            <dependent idx="16">off</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-ccprocessed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="4">handy</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="2">phones</governor>
+            <dependent idx="1">Camera</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="4">handy</governor>
+            <dependent idx="2">phones</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="4">handy</governor>
+            <dependent idx="3">are</dependent>
+          </dep>
+          <dep type="prepc_for">
+            <governor idx="4">handy</governor>
+            <dependent idx="6">taking</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="6">taking</governor>
+            <dependent idx="7">photos</dependent>
+          </dep>
+          <dep type="conj_but">
+            <governor idx="4">handy</governor>
+            <dependent idx="10">not</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="12">handy</governor>
+            <dependent idx="11">so</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="4">handy</governor>
+            <dependent idx="12">handy</dependent>
+          </dep>
+          <dep type="prepc_for">
+            <governor idx="12">handy</governor>
+            <dependent idx="14">showing</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="14">showing</governor>
+            <dependent idx="15">them</dependent>
+          </dep>
+          <dep type="prt">
+            <governor idx="14">showing</governor>
+            <dependent idx="16">off</dependent>
+          </dep>
+        </dependencies>
+      </sentence>
+      <sentence id="2" sentimentValue="3" sentiment="Positive">
+        <tokens>
+          <token id="1">
+            <word>Parrot</word>
+            <lemma>parrot</lemma>
+            <CharacterOffsetBegin>82</CharacterOffsetBegin>
+            <CharacterOffsetEnd>88</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="2">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>88</CharacterOffsetBegin>
+            <CharacterOffsetEnd>89</CharacterOffsetEnd>
+            <POS>,</POS>
+            <NER>O</NER>
+          </token>
+          <token id="3">
+            <word>best</word>
+            <lemma>best</lemma>
+            <CharacterOffsetBegin>90</CharacterOffsetBegin>
+            <CharacterOffsetEnd>94</CharacterOffsetEnd>
+            <POS>RB</POS>
+            <NER>O</NER>
+          </token>
+          <token id="4">
+            <word>known</word>
+            <lemma>know</lemma>
+            <CharacterOffsetBegin>95</CharacterOffsetBegin>
+            <CharacterOffsetEnd>100</CharacterOffsetEnd>
+            <POS>VBN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="5">
+            <word>for</word>
+            <lemma>for</lemma>
+            <CharacterOffsetBegin>101</CharacterOffsetBegin>
+            <CharacterOffsetEnd>104</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="6">
+            <word>its</word>
+            <lemma>its</lemma>
+            <CharacterOffsetBegin>105</CharacterOffsetBegin>
+            <CharacterOffsetEnd>108</CharacterOffsetEnd>
+            <POS>PRP$</POS>
+            <NER>O</NER>
+          </token>
+          <token id="7">
+            <word>car</word>
+            <lemma>car</lemma>
+            <CharacterOffsetBegin>109</CharacterOffsetBegin>
+            <CharacterOffsetEnd>112</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="8">
+            <word>accessories</word>
+            <lemma>accessory</lemma>
+            <CharacterOffsetBegin>113</CharacterOffsetBegin>
+            <CharacterOffsetEnd>124</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="9">
+            <word>that</word>
+            <lemma>that</lemma>
+            <CharacterOffsetBegin>125</CharacterOffsetBegin>
+            <CharacterOffsetEnd>129</CharacterOffsetEnd>
+            <POS>WDT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="10">
+            <word>use</word>
+            <lemma>use</lemma>
+            <CharacterOffsetBegin>130</CharacterOffsetBegin>
+            <CharacterOffsetEnd>133</CharacterOffsetEnd>
+            <POS>VBP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="11">
+            <word>Bluetooth</word>
+            <lemma>Bluetooth</lemma>
+            <CharacterOffsetBegin>134</CharacterOffsetBegin>
+            <CharacterOffsetEnd>143</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="12">
+            <word>wireless</word>
+            <lemma>wireless</lemma>
+            <CharacterOffsetBegin>144</CharacterOffsetBegin>
+            <CharacterOffsetEnd>152</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="13">
+            <word>technology</word>
+            <lemma>technology</lemma>
+            <CharacterOffsetBegin>153</CharacterOffsetBegin>
+            <CharacterOffsetEnd>163</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="14">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>163</CharacterOffsetBegin>
+            <CharacterOffsetEnd>164</CharacterOffsetEnd>
+            <POS>,</POS>
+            <NER>O</NER>
+          </token>
+          <token id="15">
+            <word>has</word>
+            <lemma>have</lemma>
+            <CharacterOffsetBegin>165</CharacterOffsetBegin>
+            <CharacterOffsetEnd>168</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="16">
+            <word>introduced</word>
+            <lemma>introduce</lemma>
+            <CharacterOffsetBegin>169</CharacterOffsetBegin>
+            <CharacterOffsetEnd>179</CharacterOffsetEnd>
+            <POS>VBN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="17">
+            <word>a</word>
+            <lemma>a</lemma>
+            <CharacterOffsetBegin>180</CharacterOffsetBegin>
+            <CharacterOffsetEnd>181</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="18">
+            <word>picture</word>
+            <lemma>picture</lemma>
+            <CharacterOffsetBegin>182</CharacterOffsetBegin>
+            <CharacterOffsetEnd>189</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="19">
+            <word>frame</word>
+            <lemma>frame</lemma>
+            <CharacterOffsetBegin>190</CharacterOffsetBegin>
+            <CharacterOffsetEnd>195</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="20">
+            <word>that</word>
+            <lemma>that</lemma>
+            <CharacterOffsetBegin>196</CharacterOffsetBegin>
+            <CharacterOffsetEnd>200</CharacterOffsetEnd>
+            <POS>WDT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="21">
+            <word>stores</word>
+            <lemma>store</lemma>
+            <CharacterOffsetBegin>201</CharacterOffsetBegin>
+            <CharacterOffsetEnd>207</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="22">
+            <word>and</word>
+            <lemma>and</lemma>
+            <CharacterOffsetBegin>208</CharacterOffsetBegin>
+            <CharacterOffsetEnd>211</CharacterOffsetEnd>
+            <POS>CC</POS>
+            <NER>O</NER>
+          </token>
+          <token id="23">
+            <word>displays</word>
+            <lemma>display</lemma>
+            <CharacterOffsetBegin>212</CharacterOffsetBegin>
+            <CharacterOffsetEnd>220</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="24">
+            <word>photos</word>
+            <lemma>photo</lemma>
+            <CharacterOffsetBegin>221</CharacterOffsetBegin>
+            <CharacterOffsetEnd>227</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="25">
+            <word>transmitted</word>
+            <lemma>transmit</lemma>
+            <CharacterOffsetBegin>228</CharacterOffsetBegin>
+            <CharacterOffsetEnd>239</CharacterOffsetEnd>
+            <POS>VBN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="26">
+            <word>from</word>
+            <lemma>from</lemma>
+            <CharacterOffsetBegin>240</CharacterOffsetBegin>
+            <CharacterOffsetEnd>244</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="27">
+            <word>camera</word>
+            <lemma>camera</lemma>
+            <CharacterOffsetBegin>245</CharacterOffsetBegin>
+            <CharacterOffsetEnd>251</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="28">
+            <word>phones</word>
+            <lemma>phone</lemma>
+            <CharacterOffsetBegin>252</CharacterOffsetBegin>
+            <CharacterOffsetEnd>258</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="29">
+            <word>and</word>
+            <lemma>and</lemma>
+            <CharacterOffsetBegin>259</CharacterOffsetBegin>
+            <CharacterOffsetEnd>262</CharacterOffsetEnd>
+            <POS>CC</POS>
+            <NER>O</NER>
+          </token>
+          <token id="30">
+            <word>other</word>
+            <lemma>other</lemma>
+            <CharacterOffsetBegin>263</CharacterOffsetBegin>
+            <CharacterOffsetEnd>268</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="31">
+            <word>devices</word>
+            <lemma>device</lemma>
+            <CharacterOffsetBegin>269</CharacterOffsetBegin>
+            <CharacterOffsetEnd>276</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="32">
+            <word>via</word>
+            <lemma>via</lemma>
+            <CharacterOffsetBegin>277</CharacterOffsetBegin>
+            <CharacterOffsetEnd>280</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="33">
+            <word>Bluetooth</word>
+            <lemma>Bluetooth</lemma>
+            <CharacterOffsetBegin>281</CharacterOffsetBegin>
+            <CharacterOffsetEnd>290</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="34">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>290</CharacterOffsetBegin>
+            <CharacterOffsetEnd>291</CharacterOffsetEnd>
+            <POS>.</POS>
+            <NER>O</NER>
+          </token>
+        </tokens>
+        <parse>(ROOT (S (NP (NP (NN Parrot)) (, ,) (VP (ADVP (RB best)) (VBN known) (PP (IN for) (NP (NP (PRP$ its) (NN car) (NNS accessories)) (SBAR (WHNP (WDT that)) (S (VP (VBP use) (NP (NNP Bluetooth) (JJ wireless) (NN technology)))))))) (, ,)) (VP (VBZ has) (VP (VBN introduced) (NP (NP (DT a) (NN picture) (NN frame)) (SBAR (WHNP (WDT that)) (S (NP (NNS stores) (CC and) (NNS displays) (NNS photos)) (VP (VBN transmitted) (PP (IN from) (NP (NP (NN camera) (NNS phones)) (CC and) (NP (NP (JJ other) (NNS devices)) (PP (IN via) (NP (NNP Bluetooth)))))))))))) (. .))) </parse>
+        <dependencies type="basic-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="16">introduced</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="1">Parrot</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="4">known</governor>
+            <dependent idx="3">best</dependent>
+          </dep>
+          <dep type="vmod">
+            <governor idx="1">Parrot</governor>
+            <dependent idx="4">known</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="4">known</governor>
+            <dependent idx="5">for</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="8">accessories</governor>
+            <dependent idx="6">its</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="8">accessories</governor>
+            <dependent idx="7">car</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="5">for</governor>
+            <dependent idx="8">accessories</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="10">use</governor>
+            <dependent idx="9">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="8">accessories</governor>
+            <dependent idx="10">use</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="13">technology</governor>
+            <dependent idx="11">Bluetooth</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="13">technology</governor>
+            <dependent idx="12">wireless</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="10">use</governor>
+            <dependent idx="13">technology</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="16">introduced</governor>
+            <dependent idx="15">has</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="19">frame</governor>
+            <dependent idx="17">a</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="19">frame</governor>
+            <dependent idx="18">picture</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="19">frame</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="20">that</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="21">stores</dependent>
+          </dep>
+          <dep type="cc">
+            <governor idx="21">stores</governor>
+            <dependent idx="22">and</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="24">photos</governor>
+            <dependent idx="23">displays</dependent>
+          </dep>
+          <dep type="conj">
+            <governor idx="21">stores</governor>
+            <dependent idx="24">photos</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="19">frame</governor>
+            <dependent idx="25">transmitted</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="26">from</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="28">phones</governor>
+            <dependent idx="27">camera</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="26">from</governor>
+            <dependent idx="28">phones</dependent>
+          </dep>
+          <dep type="cc">
+            <governor idx="28">phones</governor>
+            <dependent idx="29">and</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="31">devices</governor>
+            <dependent idx="30">other</dependent>
+          </dep>
+          <dep type="conj">
+            <governor idx="28">phones</governor>
+            <dependent idx="31">devices</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="31">devices</governor>
+            <dependent idx="32">via</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="32">via</governor>
+            <dependent idx="33">Bluetooth</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="16">introduced</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="1">Parrot</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="4">known</governor>
+            <dependent idx="3">best</dependent>
+          </dep>
+          <dep type="vmod">
+            <governor idx="1">Parrot</governor>
+            <dependent idx="4">known</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="8">accessories</governor>
+            <dependent idx="6">its</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="8">accessories</governor>
+            <dependent idx="7">car</dependent>
+          </dep>
+          <dep type="prep_for">
+            <governor idx="4">known</governor>
+            <dependent idx="8">accessories</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="10">use</governor>
+            <dependent idx="9">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="8">accessories</governor>
+            <dependent idx="10">use</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="13">technology</governor>
+            <dependent idx="11">Bluetooth</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="13">technology</governor>
+            <dependent idx="12">wireless</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="10">use</governor>
+            <dependent idx="13">technology</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="16">introduced</governor>
+            <dependent idx="15">has</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="19">frame</governor>
+            <dependent idx="17">a</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="19">frame</governor>
+            <dependent idx="18">picture</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="19">frame</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="20">that</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="21">stores</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="24">photos</governor>
+            <dependent idx="23">displays</dependent>
+          </dep>
+          <dep type="conj_and">
+            <governor idx="21">stores</governor>
+            <dependent idx="24">photos</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="19">frame</governor>
+            <dependent idx="25">transmitted</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="28">phones</governor>
+            <dependent idx="27">camera</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="28">phones</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="31">devices</governor>
+            <dependent idx="30">other</dependent>
+          </dep>
+          <dep type="conj_and">
+            <governor idx="28">phones</governor>
+            <dependent idx="31">devices</dependent>
+          </dep>
+          <dep type="prep_via">
+            <governor idx="31">devices</governor>
+            <dependent idx="33">Bluetooth</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-ccprocessed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="16">introduced</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="1">Parrot</dependent>
+          </dep>
+          <dep type="advmod">
+            <governor idx="4">known</governor>
+            <dependent idx="3">best</dependent>
+          </dep>
+          <dep type="vmod">
+            <governor idx="1">Parrot</governor>
+            <dependent idx="4">known</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="8">accessories</governor>
+            <dependent idx="6">its</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="8">accessories</governor>
+            <dependent idx="7">car</dependent>
+          </dep>
+          <dep type="prep_for">
+            <governor idx="4">known</governor>
+            <dependent idx="8">accessories</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="10">use</governor>
+            <dependent idx="9">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="8">accessories</governor>
+            <dependent idx="10">use</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="13">technology</governor>
+            <dependent idx="11">Bluetooth</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="13">technology</governor>
+            <dependent idx="12">wireless</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="10">use</governor>
+            <dependent idx="13">technology</dependent>
+          </dep>
+          <dep type="aux">
+            <governor idx="16">introduced</governor>
+            <dependent idx="15">has</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="19">frame</governor>
+            <dependent idx="17">a</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="19">frame</governor>
+            <dependent idx="18">picture</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="16">introduced</governor>
+            <dependent idx="19">frame</dependent>
+          </dep>
+          <dep type="dobj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="20">that</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="21">stores</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="24">photos</governor>
+            <dependent idx="23">displays</dependent>
+          </dep>
+          <dep type="conj_and">
+            <governor idx="21">stores</governor>
+            <dependent idx="24">photos</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="24">photos</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="19">frame</governor>
+            <dependent idx="25">transmitted</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="28">phones</governor>
+            <dependent idx="27">camera</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="28">phones</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="31">devices</governor>
+            <dependent idx="30">other</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="25">transmitted</governor>
+            <dependent idx="31">devices</dependent>
+          </dep>
+          <dep type="conj_and">
+            <governor idx="28">phones</governor>
+            <dependent idx="31">devices</dependent>
+          </dep>
+          <dep type="prep_via">
+            <governor idx="31">devices</governor>
+            <dependent idx="33">Bluetooth</dependent>
+          </dep>
+        </dependencies>
+      </sentence>
+      <sentence id="3" sentimentValue="1" sentiment="Negative">
+        <tokens>
+          <token id="1">
+            <word>The</word>
+            <lemma>the</lemma>
+            <CharacterOffsetBegin>292</CharacterOffsetBegin>
+            <CharacterOffsetEnd>295</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="2">
+            <word>Parrot</word>
+            <lemma>parrot</lemma>
+            <CharacterOffsetBegin>296</CharacterOffsetBegin>
+            <CharacterOffsetEnd>302</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="3">
+            <word>Photo</word>
+            <lemma>Photo</lemma>
+            <CharacterOffsetBegin>303</CharacterOffsetBegin>
+            <CharacterOffsetEnd>308</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="4">
+            <word>Viewer</word>
+            <lemma>Viewer</lemma>
+            <CharacterOffsetBegin>309</CharacterOffsetBegin>
+            <CharacterOffsetEnd>315</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="5">
+            <word>is</word>
+            <lemma>be</lemma>
+            <CharacterOffsetBegin>316</CharacterOffsetBegin>
+            <CharacterOffsetEnd>318</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="6">
+            <word>a</word>
+            <lemma>a</lemma>
+            <CharacterOffsetBegin>319</CharacterOffsetBegin>
+            <CharacterOffsetEnd>320</CharacterOffsetEnd>
+            <POS>DT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="7">
+            <word>3.5-inch</word>
+            <lemma>3.5-inch</lemma>
+            <CharacterOffsetBegin>321</CharacterOffsetBegin>
+            <CharacterOffsetEnd>329</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="8">
+            <word>L.C.D.</word>
+            <lemma>L.C.D.</lemma>
+            <CharacterOffsetBegin>330</CharacterOffsetBegin>
+            <CharacterOffsetEnd>336</CharacterOffsetEnd>
+            <POS>NNP</POS>
+            <NER>O</NER>
+          </token>
+          <token id="9">
+            <word>screen</word>
+            <lemma>screen</lemma>
+            <CharacterOffsetBegin>337</CharacterOffsetBegin>
+            <CharacterOffsetEnd>343</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="10">
+            <word>that</word>
+            <lemma>that</lemma>
+            <CharacterOffsetBegin>344</CharacterOffsetBegin>
+            <CharacterOffsetEnd>348</CharacterOffsetEnd>
+            <POS>WDT</POS>
+            <NER>O</NER>
+          </token>
+          <token id="11">
+            <word>comes</word>
+            <lemma>come</lemma>
+            <CharacterOffsetBegin>349</CharacterOffsetBegin>
+            <CharacterOffsetEnd>354</CharacterOffsetEnd>
+            <POS>VBZ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="12">
+            <word>ensconced</word>
+            <lemma>ensconce</lemma>
+            <CharacterOffsetBegin>355</CharacterOffsetBegin>
+            <CharacterOffsetEnd>364</CharacterOffsetEnd>
+            <POS>VBN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="13">
+            <word>in</word>
+            <lemma>in</lemma>
+            <CharacterOffsetBegin>365</CharacterOffsetBegin>
+            <CharacterOffsetEnd>367</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="14">
+            <word>your</word>
+            <lemma>you</lemma>
+            <CharacterOffsetBegin>368</CharacterOffsetBegin>
+            <CharacterOffsetEnd>372</CharacterOffsetEnd>
+            <POS>PRP$</POS>
+            <NER>O</NER>
+          </token>
+          <token id="15">
+            <word>choice</word>
+            <lemma>choice</lemma>
+            <CharacterOffsetBegin>373</CharacterOffsetBegin>
+            <CharacterOffsetEnd>379</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="16">
+            <word>of</word>
+            <lemma>of</lemma>
+            <CharacterOffsetBegin>380</CharacterOffsetBegin>
+            <CharacterOffsetEnd>382</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="17">
+            <word>fashionable</word>
+            <lemma>fashionable</lemma>
+            <CharacterOffsetBegin>383</CharacterOffsetBegin>
+            <CharacterOffsetEnd>394</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="18">
+            <word>frames</word>
+            <lemma>frame</lemma>
+            <CharacterOffsetBegin>395</CharacterOffsetBegin>
+            <CharacterOffsetEnd>401</CharacterOffsetEnd>
+            <POS>NNS</POS>
+            <NER>O</NER>
+          </token>
+          <token id="19">
+            <word>,</word>
+            <lemma>,</lemma>
+            <CharacterOffsetBegin>401</CharacterOffsetBegin>
+            <CharacterOffsetEnd>402</CharacterOffsetEnd>
+            <POS>,</POS>
+            <NER>O</NER>
+          </token>
+          <token id="20">
+            <word>from</word>
+            <lemma>from</lemma>
+            <CharacterOffsetBegin>403</CharacterOffsetBegin>
+            <CharacterOffsetEnd>407</CharacterOffsetEnd>
+            <POS>IN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="21">
+            <word>leather</word>
+            <lemma>leather</lemma>
+            <CharacterOffsetBegin>408</CharacterOffsetBegin>
+            <CharacterOffsetEnd>415</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="22">
+            <word>grain</word>
+            <lemma>grain</lemma>
+            <CharacterOffsetBegin>416</CharacterOffsetBegin>
+            <CharacterOffsetEnd>421</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="23">
+            <word>to</word>
+            <lemma>to</lemma>
+            <CharacterOffsetBegin>422</CharacterOffsetBegin>
+            <CharacterOffsetEnd>424</CharacterOffsetEnd>
+            <POS>TO</POS>
+            <NER>O</NER>
+          </token>
+          <token id="24">
+            <word>distressed</word>
+            <lemma>distressed</lemma>
+            <CharacterOffsetBegin>425</CharacterOffsetBegin>
+            <CharacterOffsetEnd>435</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="25">
+            <word>wood</word>
+            <lemma>wood</lemma>
+            <CharacterOffsetBegin>436</CharacterOffsetBegin>
+            <CharacterOffsetEnd>440</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="26">
+            <word>to</word>
+            <lemma>to</lemma>
+            <CharacterOffsetBegin>441</CharacterOffsetBegin>
+            <CharacterOffsetEnd>443</CharacterOffsetEnd>
+            <POS>TO</POS>
+            <NER>O</NER>
+          </token>
+          <token id="27">
+            <word>faux</word>
+            <lemma>faux</lemma>
+            <CharacterOffsetBegin>444</CharacterOffsetBegin>
+            <CharacterOffsetEnd>448</CharacterOffsetEnd>
+            <POS>JJ</POS>
+            <NER>O</NER>
+          </token>
+          <token id="28">
+            <word>crocodile</word>
+            <lemma>crocodile</lemma>
+            <CharacterOffsetBegin>449</CharacterOffsetBegin>
+            <CharacterOffsetEnd>458</CharacterOffsetEnd>
+            <POS>NN</POS>
+            <NER>O</NER>
+          </token>
+          <token id="29">
+            <word>.</word>
+            <lemma>.</lemma>
+            <CharacterOffsetBegin>458</CharacterOffsetBegin>
+            <CharacterOffsetEnd>459</CharacterOffsetEnd>
+            <POS>.</POS>
+            <NER>O</NER>
+          </token>
+        </tokens>
+        <parse>(ROOT (S (NP (DT The) (NN Parrot) (NNP Photo) (NNP Viewer)) (VP (VBZ is) (NP (NP (DT a) (JJ 3.5-inch) (NNP L.C.D.) (NN screen)) (SBAR (WHNP (WDT that)) (S (VP (VBZ comes) (S (VP (VBN ensconced) (PP (IN in) (NP (NP (PRP$ your) (NN choice)) (PP (IN of) (NP (JJ fashionable) (NNS frames))) (, ,) (PP (IN from) (NP (NN leather) (NN grain))))) (PP (TO to) (NP (JJ distressed) (NN wood))) (PP (TO to) (NP (JJ faux) (NN crocodile)))))))))) (. .))) </parse>
+        <dependencies type="basic-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">screen</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="1">The</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="2">Parrot</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="3">Photo</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">screen</governor>
+            <dependent idx="4">Viewer</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="9">screen</governor>
+            <dependent idx="5">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="9">screen</governor>
+            <dependent idx="6">a</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="9">screen</governor>
+            <dependent idx="7">3.5-inch</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="9">screen</governor>
+            <dependent idx="8">L.C.D.</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="11">comes</governor>
+            <dependent idx="10">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="9">screen</governor>
+            <dependent idx="11">comes</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="11">comes</governor>
+            <dependent idx="12">ensconced</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="13">in</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="15">choice</governor>
+            <dependent idx="14">your</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="13">in</governor>
+            <dependent idx="15">choice</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="15">choice</governor>
+            <dependent idx="16">of</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="18">frames</governor>
+            <dependent idx="17">fashionable</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="16">of</governor>
+            <dependent idx="18">frames</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="15">choice</governor>
+            <dependent idx="20">from</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="22">grain</governor>
+            <dependent idx="21">leather</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="20">from</governor>
+            <dependent idx="22">grain</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="23">to</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="25">wood</governor>
+            <dependent idx="24">distressed</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="23">to</governor>
+            <dependent idx="25">wood</dependent>
+          </dep>
+          <dep type="prep">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="26">to</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="28">crocodile</governor>
+            <dependent idx="27">faux</dependent>
+          </dep>
+          <dep type="pobj">
+            <governor idx="26">to</governor>
+            <dependent idx="28">crocodile</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">screen</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="1">The</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="2">Parrot</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="3">Photo</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">screen</governor>
+            <dependent idx="4">Viewer</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="9">screen</governor>
+            <dependent idx="5">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="9">screen</governor>
+            <dependent idx="6">a</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="9">screen</governor>
+            <dependent idx="7">3.5-inch</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="9">screen</governor>
+            <dependent idx="8">L.C.D.</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="11">comes</governor>
+            <dependent idx="10">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="9">screen</governor>
+            <dependent idx="11">comes</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="11">comes</governor>
+            <dependent idx="12">ensconced</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="15">choice</governor>
+            <dependent idx="14">your</dependent>
+          </dep>
+          <dep type="prep_in">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="15">choice</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="18">frames</governor>
+            <dependent idx="17">fashionable</dependent>
+          </dep>
+          <dep type="prep_of">
+            <governor idx="15">choice</governor>
+            <dependent idx="18">frames</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="22">grain</governor>
+            <dependent idx="21">leather</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="15">choice</governor>
+            <dependent idx="22">grain</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="25">wood</governor>
+            <dependent idx="24">distressed</dependent>
+          </dep>
+          <dep type="prep_to">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="25">wood</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="28">crocodile</governor>
+            <dependent idx="27">faux</dependent>
+          </dep>
+          <dep type="prep_to">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="28">crocodile</dependent>
+          </dep>
+        </dependencies>
+        <dependencies type="collapsed-ccprocessed-dependencies">
+          <dep type="root">
+            <governor idx="0">ROOT</governor>
+            <dependent idx="9">screen</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="1">The</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="2">Parrot</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="4">Viewer</governor>
+            <dependent idx="3">Photo</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="9">screen</governor>
+            <dependent idx="4">Viewer</dependent>
+          </dep>
+          <dep type="cop">
+            <governor idx="9">screen</governor>
+            <dependent idx="5">is</dependent>
+          </dep>
+          <dep type="det">
+            <governor idx="9">screen</governor>
+            <dependent idx="6">a</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="9">screen</governor>
+            <dependent idx="7">3.5-inch</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="9">screen</governor>
+            <dependent idx="8">L.C.D.</dependent>
+          </dep>
+          <dep type="nsubj">
+            <governor idx="11">comes</governor>
+            <dependent idx="10">that</dependent>
+          </dep>
+          <dep type="rcmod">
+            <governor idx="9">screen</governor>
+            <dependent idx="11">comes</dependent>
+          </dep>
+          <dep type="dep">
+            <governor idx="11">comes</governor>
+            <dependent idx="12">ensconced</dependent>
+          </dep>
+          <dep type="poss">
+            <governor idx="15">choice</governor>
+            <dependent idx="14">your</dependent>
+          </dep>
+          <dep type="prep_in">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="15">choice</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="18">frames</governor>
+            <dependent idx="17">fashionable</dependent>
+          </dep>
+          <dep type="prep_of">
+            <governor idx="15">choice</governor>
+            <dependent idx="18">frames</dependent>
+          </dep>
+          <dep type="nn">
+            <governor idx="22">grain</governor>
+            <dependent idx="21">leather</dependent>
+          </dep>
+          <dep type="prep_from">
+            <governor idx="15">choice</governor>
+            <dependent idx="22">grain</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="25">wood</governor>
+            <dependent idx="24">distressed</dependent>
+          </dep>
+          <dep type="prep_to">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="25">wood</dependent>
+          </dep>
+          <dep type="amod">
+            <governor idx="28">crocodile</governor>
+            <dependent idx="27">faux</dependent>
+          </dep>
+          <dep type="prep_to">
+            <governor idx="12">ensconced</governor>
+            <dependent idx="28">crocodile</dependent>
+          </dep>
+        </dependencies>
+      </sentence>
+    </sentences>
+  </document>
+</root>

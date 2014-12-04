@@ -32,4 +32,4 @@ def test_data_files():
     """
     @returns: [str]
     """
-    return get_files(text_train_data)
+    return get_files(text_test_data)
