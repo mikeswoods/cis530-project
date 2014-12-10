@@ -78,12 +78,12 @@ def get_model(name):
     return import_module('project.models.{}'.format(name))
 
 
-def train(model_name, train_files, *args, **kwargs):
+def train(model_name, train_files, train_labels, *args, **kwargs):
     """
-    train(model_name, train_files, *args, **kwargs) -> model
+    train(model_name, train_files, train_labels, *args, **kwargs) -> model
     """
     model_module = get_model(model_name)
-    return model_module.train(train_files, *args, **kwargs)
+    return model_module.train(train_files, train_labels, *args, **kwargs)
 
 
 def predict(model_name, trained_model, test_files, *args, **kwargs):
@@ -118,8 +118,11 @@ def test(model_name, n_folds=10, suppress_output=False, show_results=False, *arg
     info("> N-fold xval: #folds: {}, |train| (kept): {}, |test| (held out): {}, fold: {}"\
          .format(n_folds, len(train_files), len(test_files), hold_out_fold))
     
+    # Build the training labels:
+    train_labels = {f: labels[f] for f in filename_to_id(train_files)}
+
     # Build the training model on all data but the held out data
-    trained_model    = train(model_name, train_files, *args, **kwargs)
+    trained_model    = train(model_name, train_files, train_labels, *args, **kwargs)
 
     # Use the trained model to make predictions
     predicted_labels = predict(model_name, trained_model, test_files, *args, **kwargs)
@@ -142,7 +145,8 @@ def test(model_name, n_folds=10, suppress_output=False, show_results=False, *arg
                   .format('x' if result else ' ', observation_id, predicted_label, actual_label))
 
     incorrect_count = total_observations - correct_count
-    accuracy        = (float(correct_count) / float(total_observations)) * 100.0
+    accuracy        = 0 if total_observations == 0 \
+                        else (float(correct_count) / float(total_observations)) * 100.0
 
     if not suppress_output:
         line = '*' * 80

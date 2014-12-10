@@ -50,6 +50,38 @@ def _create_CoreNLP_test_xml():
 
 ################################################################################
 
+def tokenize(filenames):
+    """
+    Tokenizes the contents of filenames using CoreNLP
+
+    Note: All files in filenames are assumed to have been processed with
+    CoreNLP prior
+    
+    @returns [[str]]
+    """
+    names = filename_to_id(filenames)
+    S = all_sentences()
+
+    get_word  = lambda token: token['word']
+    return [map(get_word, s['tokens']) for name in names for s in S[name]]
+
+
+def tokenize_keys(filenames):
+    """
+    Tokenizes the contents of filenames using CoreNLP returning a dict keyed
+    by the filename
+
+    Note: All files in filenames are assumed to have been processed with
+    CoreNLP prior
+    
+    @returns {str:[str]}
+    """
+    names = filename_to_id(filenames)
+    S = all_sentences()
+
+    get_word  = lambda token: token['word']
+    return {name: map(get_word, s['tokens']) for name in names for s in S[name]}
+
 
 def all_sentences():
     """

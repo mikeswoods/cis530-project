@@ -1,11 +1,16 @@
 from os.path import basename
 
+from string import punctuation
+from nltk.corpus import stopwords
+
 from project import resources 
 from project import utils
 
 ################################################################################
 # Text processing code lives here
 ################################################################################
+
+STOP_WORDS = set(stopwords.words('english')) | set(punctuation) | set(['--', "''", '""'])
 
 def read_file(filetype, index=None):
     """
@@ -41,3 +46,10 @@ def filename_to_id(filenames):
         return map(process, filenames)
     else:   
         return process(filenames)
+
+def strip_non_words(tokens):
+    """
+    Returns all tokens in tokens that are not in STOP_WORDS
+    """
+    return [token for token in tokens if token not in STOP_WORDS]
+

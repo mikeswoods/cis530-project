@@ -7,7 +7,7 @@ from project.text import filename_to_id
 ################################################################################
 
 
-def train(train_files):
+def train(train_files, train_labels):
     """
     No model to build
     """

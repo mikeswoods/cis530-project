@@ -26,4 +26,9 @@ logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
 
-    classify.test_iterations('sample', 50)
+    #classify.test('sample')
+    #classify.test_iterations('sample', 50)
+
+
+    #classify.test('sample')
+    classify.test('nb_bag_of_words')
