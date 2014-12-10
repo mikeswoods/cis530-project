@@ -1,3 +1,5 @@
+from os.path import basename
+
 from project import resources 
 from project import utils
 
@@ -26,3 +28,9 @@ def read_file(filetype, index=None):
 
     return map(utils.files.read_file, filelist) \
            if index is None else utils.files.read_file(filelist[index])
+
+def filename_to_label(filename):
+    """
+    Given a filename, converts the filename to an observation label
+    """
+    return basename(filename.strip())
