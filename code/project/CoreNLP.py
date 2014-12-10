@@ -13,7 +13,7 @@ try:
     import xml.etree.cElementTree as ET
 except:
     import xml.etree.ElementTree as ET
-from os.path import exists
+from os.path import exists, splitext
 
 from project import resources
 from project.text import filename_to_id
@@ -74,8 +74,9 @@ def all_sentences():
 
     filenames = resources.train_data_files('CoreNLP')
     # parse_sentences(filename)[1] means to only keep the actual sentence data,
-    # not the file name/observation identifier
-    data      = {filename_to_id(filename): parse_sentences(filename)[1] for filename in filenames}
+    # not the file name/observation identifier. Also, lops off the ".xml" part
+    # from the CoreNLP output filename preserving the original filename
+    data = {splitext(filename_to_id(filename))[0]: parse_sentences(filename)[1] for filename in filenames}
 
     with open(corenlp_bin_data, 'w') as f:
         pickle.dump(data, f)
