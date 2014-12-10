@@ -29,8 +29,15 @@ def read_file(filetype, index=None):
     return map(utils.files.read_file, filelist) \
            if index is None else utils.files.read_file(filelist[index])
 
-def filename_to_label(filename):
+def filename_to_id(filenames):
     """
-    Given a filename, converts the filename to an observation label
+    Given a filename or filenames, this function converts the 
+    filename to an observation ID (the basename of the file) or list of 
+    observation IDs
     """
-    return basename(filename.strip())
+    process = lambda f: basename(f.strip()) 
+
+    if isinstance(filenames, list):
+        return map(process, filenames)
+    else:   
+        return process(filenames)

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import logging
 from logging import debug, info, warn
@@ -25,15 +26,4 @@ logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
 
-    #xml_file = '/Users/mike/src/school/cis530-project/data/CoreNLP/train_data/2006_12_29_1815122.txt.xml'
-    #S = CoreNLP.parse_sentences(xml_file)
-
-    print CoreNLP.all_sentences()['2006_12_13_1811545.txt.xml']
-
-    #train_labels =  dict(resources.train_data_labels().items()[1:10])
-
-    #(kept, held, fold) = classify.nfold_xval(train_labels, n=5)
-    #print kept
-    #print held
-
-    pass
+    classify.test_iterations('sample', 50)

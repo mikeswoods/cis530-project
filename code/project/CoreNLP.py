@@ -16,7 +16,7 @@ except:
 from os.path import exists
 
 from project import resources
-from project.text import filename_to_label
+from project.text import filename_to_id
 from project.utils.files import resolve
 
 ################################################################################
@@ -75,7 +75,7 @@ def all_sentences():
     filenames = resources.train_data_files('CoreNLP')
     # parse_sentences(filename)[1] means to only keep the actual sentence data,
     # not the file name/observation identifier
-    data      = {filename_to_label(filename): parse_sentences(filename)[1] for filename in filenames}
+    data      = {filename_to_id(filename): parse_sentences(filename)[1] for filename in filenames}
 
     with open(corenlp_bin_data, 'w') as f:
         pickle.dump(data, f)
@@ -126,4 +126,4 @@ def parse_sentences(filename):
 
         sentences.append(sentence)
 
-    return (filename_to_label(filename), sentences)
+    return (filename_to_id(filename), sentences)
