@@ -3,9 +3,11 @@ import sys
 from logging import info
 from project.utils import files
 
+
 ################################################################################
 # Command running and output capture utility functions
 ################################################################################
+
 
 _CORENLP_CMD = 'java -cp "*" -Xmx3g edu.stanford.nlp.pipeline.StanfordCoreNLP'
 

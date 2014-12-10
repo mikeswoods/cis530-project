@@ -7,9 +7,11 @@ from os.path import dirname, join, realpath, expanduser, isdir, isfile
 from itertools import chain
 from contextlib import contextmanager
 
+
 ################################################################################
 # File and file-system related utility functions
 ################################################################################
+
 
 def resolve(*parts):
     """

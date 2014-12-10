@@ -9,6 +9,7 @@ import os.path
 
 from project import resources
 from project import text
+from project import CoreNLP
 from project.utils import command
 from project.utils.files import resolve
 
@@ -18,27 +19,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
 
-USE_ANNOTATORS = ['tokenize','ssplit', 'pos', 'lemma', 'ner', 'parse', 'sentiment', 'relation']
-
-def create_CoreNLP_trainxml():
-	"""
-	Generates CoreNLP output for the training data
-	"""
-	input_files = resources.train_data_files()
-	command.run_corenlp(resolve('~', 'corenlp')
-		               ,input_files
-		               ,resolve('..', 'data', 'CoreNLP', 'train_data')
-		               ,annotators=USE_ANNOTATORS)
-
-def create_CoreNLP_test_xml():
-	"""
-	Generates CoreNLP output for the training data
-	"""
-	input_files = resources.test_data_files()
-	command.run_corenlp(resolve('~', 'corenlp')
-		               ,input_files
-		               ,resolve('..', 'data', 'CoreNLP', 'test_data')
-		               ,annotators=USE_ANNOTATORS)
 
 ################################################################################
 # Main
@@ -46,4 +26,7 @@ def create_CoreNLP_test_xml():
 
 if __name__ == "__main__":
 
-	create_CoreNLP_test_xml()
+	xml_file = '/Users/mike/src/school/cis530-project/data/CoreNLP/train_data/2006_12_29_1815122.txt.xml'
+	CoreNLP.parse_sentences(xml_file)
+	
+	
