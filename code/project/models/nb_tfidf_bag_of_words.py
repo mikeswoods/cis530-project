@@ -21,8 +21,8 @@ def train(train_files, train_ids, Y, all_tokens_dict):
     # all_tokens_dict returned by preprocess() above:
 
     # See project.feature.binary_bag_of_words.py
-    F = features.build('binary_bag_of_words', train_ids, all_tokens_dict)
-    X = features.featurize('binary_bag_of_words', F, train_ids)
+    F = features.build('tfidf_bag_of_words', train_ids, all_tokens_dict)
+    X = features.featurize('tfidf_bag_of_words', F, train_ids)
 
     nb = MultinomialNB()
     nb.fit(X, Y)
@@ -36,6 +36,6 @@ def predict(model, test_files, test_ids, all_tokens_dict):
 
     (nb, F) = model
 
-    X = features.featurize('binary_bag_of_words', F, test_ids)
+    X = features.featurize('tfidf_bag_of_words', F, test_ids)
 
     return nb.predict(X)
