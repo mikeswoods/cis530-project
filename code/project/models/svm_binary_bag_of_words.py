@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn import svm
 
 import project.CoreNLP
 from project import features
@@ -19,18 +19,18 @@ def train(train_files, train_ids, Y, all_tokens_dict):
     F = features.build('binary_bag_of_words', train_ids, all_tokens_dict)
     X = features.featurize('binary_bag_of_words', F, train_ids)
 
-    nb = MultinomialNB()
-    nb.fit(X, Y)
+    M = svm.LinearSVC()
+    M.fit(X, Y)
  
-    return (nb, F)
+    return (M, F)
 
 
 def predict(model, test_files, test_ids, all_tokens_dict):
 
     # all_tokens_dict is ignored
 
-    (nb, F) = model
+    (M, F) = model
 
     X = features.featurize('binary_bag_of_words', F, test_ids)
 
-    return nb.predict(X)
+    return M.predict(X)

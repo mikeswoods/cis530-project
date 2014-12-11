@@ -13,7 +13,7 @@ from project import features
 def preprocess(train_files, test_files):
 
     # Use all files (train and test) as the corpus:
-    return [project.CoreNLP.tokenize_keys(train_files + test_files)]
+    return [project.CoreNLP.tokens_with_key(train_files + test_files)]
 
 
 def train(train_files, train_ids, Y, all_tokens_dict):
