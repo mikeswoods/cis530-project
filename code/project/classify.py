@@ -15,44 +15,7 @@ from project.utils.files import resolve
 # Classification pipeline code goes in here
 ################################################################################
 
-def nfold_xval(training_set, n=10):
-    """
-    If training_set is a list, assume it is a list of file name (observation
-    identifiers)
-
-    If training_set is a dict, take training_set.items() and using the first
-    key    
-    """
-    ob_ids  = None
-    is_dict = False
-    if isinstance(training_set, dict):
-        ob_ids  = map(lambda (key,_): key, training_set.items())
-        is_dict = True
-    elif isinstance(training_set, list):
-        ob_ids = training_set
-    else:
-        raise ValueError('training_set: not dict or list')
-
-    # [(fold, observation-id)]
-    ob_ids_folds = [(i % n, ob_id) for (i, ob_id) in enumerate(ob_ids, start=0)]
-
-    # Pick a random fold to hold out:
-    hold_out_fold = randint(0, n-1)
-
-    # Mix it up
-    shuffle(ob_ids_folds)
-
-    # Partition into held and kept sets:
-    kept     = [ob_id for (fold, ob_id) in ob_ids_folds if fold != hold_out_fold]
-    held_out = [ob_id for (fold, ob_id) in ob_ids_folds if fold == hold_out_fold]
-
-    if is_dict:
-        # Reconstruct the dicts:
-        kept_dict     = {ob_id: training_set[ob_id] for ob_id in kept} 
-        held_out_dict = {ob_id: training_set[ob_id] for ob_id in held_out}
-        return (kept_dict, held_out_dict, hold_out_fold)
-    else:
-        return (kept, held_out, hold_out_fold)
+# ...
 
 ################################################################################
 #
@@ -132,7 +95,7 @@ def predict(model_name, trained_model, files, ids, *args, **kwargs):
     return model_module.predict(trained_model, files, ids, *args, **kwargs)
 
 
-def test(model_name, n_folds=10, suppress_output=False, show_results=False, *args, **kwargs):
+def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *args, **kwargs):
     """
     Runs a full test cycle for the given model
 
@@ -148,26 +111,22 @@ def test(model_name, n_folds=10, suppress_output=False, show_results=False, *arg
     observations = resources.train_data_files('text')
     labels       = resources.train_data_labels()
 
+    # Fed into sklearn cross_validation
     Y = np.array([labels[ob_id] for ob_id in filename_to_id(observations)])
 
-
     # Divide the observation data into two sets for training and testing:
-    (train_files, test_files, hold_out_fold) = nfold_xval(observations, n=n_folds)
+    #(train_files, test_files, hold_out_fold) = nfold_xval(observations, n=n_folds)
 
-    #(X_train, X_test, y_train, y_test) = cross_validation.train_test_split(observations, Y, test_size=0.4, random_state=0)
-
-
+    (train_files, test_files, train_labels, true_labels) = \
+        cross_validation.train_test_split(observations, Y, test_size=test_size)
  
-    #assert(len(observations) == (len(train_files) + len(test_files)))
+    assert(len(train_files) == len(train_labels) and len(test_files) == len(true_labels))
 
-    info("> N-fold xval: #folds: {}, |train| (kept): {}, |test| (held out): {}, fold: {}"\
-         .format(n_folds, len(train_files), len(test_files), hold_out_fold))
+    info("> N-fold test size: {}, |train| (kept): {}, |test| (held out): {}"\
+         .format(test_size, len(train_files), len(test_files)))
     
     # The observation ID is just the basename of the input file:
     train_observation_ids = filename_to_id(train_files)
-
-    # Build the training labels:
-    train_labels = np.array([labels[ob_id] for ob_id in train_observation_ids])
 
     # Build the training model on all data but the held out data:
     trained_model = train(model_name \
@@ -188,23 +147,18 @@ def test(model_name, n_folds=10, suppress_output=False, show_results=False, *arg
                               ,*args \
                               ,**kwargs)
 
-    N = len(test_observation_ids)
-
     # Compare the accuracy of the prediction against the actual labels:
     correct_count      = 0 
     total_observations = len(predicted_labels)
 
     # For every test observation:
-    for i in range(N):
+    for i in range(len(test_files)):
 
         # Get the test observsation ID:
         test_ob_id = test_observation_ids[i]
 
-        # And the true label for that particular observation
-        true_label = labels[test_ob_id]
-
         # and compare it to the predicted label:
-        result = true_label == predicted_labels[i]
+        result = true_labels[i] == predicted_labels[i]
 
         # Correct:
         if result:
@@ -212,7 +166,7 @@ def test(model_name, n_folds=10, suppress_output=False, show_results=False, *arg
 
         if not suppress_output and show_results:
             debug("  [{}]  {}\t{}\t{}"\
-                  .format('x' if result else ' ', observation_id, predicted_labels[i], true_label))
+                  .format('x' if result else ' ', observation_id, predicted_labels[i], true_labels[i]))
 
     incorrect_count = total_observations - correct_count
     accuracy        = 0 if total_observations == 0 \
