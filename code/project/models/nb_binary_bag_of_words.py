@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import GaussianNB, MultinomialNB
 
 from itertools import chain
 from collections import Counter
@@ -22,9 +22,7 @@ def preprocess(train_files, test_files):
 
 def train(files, ids, Y, tokens_by_file):
 
-     # tokens_by_file is passed by classify.py from this models's preprocess()
-
-    #tokens_by_file = project.CoreNLP.tokenize_keys(files)
+    # tokens_by_file is passed by classify.py from this models's preprocess()
 
     # Strip all the junk:
     corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))
@@ -45,10 +43,10 @@ def train(files, ids, Y, tokens_by_file):
             j = keys_indices[token]
             X[i][j] = 1
 
-    gnb = GaussianNB()
-    gnb.fit(X, Y)
+    nb = MultinomialNB()
+    nb.fit(X, Y)
  
-    return (gnb, keys_indices, tokens_by_file)
+    return (nb, keys_indices)
 
 
 def predict(model, files, ids, tokens_by_file):
@@ -56,9 +54,7 @@ def predict(model, files, ids, tokens_by_file):
     # tokens_by_file is passed by classify.py from this models's preprocess()
 
     keys_indices = model[1]
-    tokens_by_file = model[2]
     model = model[0]
-    #tokens_by_file = project.CoreNLP.tokenize_keys(files)
 
     # Strip all the junk:
     corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))
