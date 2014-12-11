@@ -1,4 +1,4 @@
-from project.text import filename_to_id
+import numpy as np
 
 ################################################################################
 #
@@ -7,14 +7,11 @@ from project.text import filename_to_id
 ################################################################################
 
 
-def train(train_files, train_labels):
-    """
-    No model to build
-    """
-    return {}
+def train(files, ids, labels):
 
-def predict(model, test_files):
-    """
-    Always predicts 1
-    """
-    return {observation_id: 1 for observation_id in filename_to_id(test_files)}
+    return None
+
+
+def predict(model, ids, files):
+
+    return np.array([1 for ob_id in ids])
