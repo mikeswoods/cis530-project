@@ -14,9 +14,17 @@ from project.text import filename_to_id, strip_non_words
 ################################################################################
 
 
-def train(files, ids, Y):
+def preprocess(train_files, test_files):
 
-    tokens_by_file = project.CoreNLP.tokenize_keys(files)
+    # Use all files (train and test) as the corpus:
+    return [project.CoreNLP.tokenize_keys(train_files + test_files)]
+
+
+def train(files, ids, Y, tokens_by_file):
+
+     # tokens_by_file is passed by classify.py from this models's preprocess()
+
+    #tokens_by_file = project.CoreNLP.tokenize_keys(files)
 
     # Strip all the junk:
     corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))
@@ -43,12 +51,14 @@ def train(files, ids, Y):
     return (gnb, keys_indices, tokens_by_file)
 
 
-def predict(model, files, ids):
+def predict(model, files, ids, tokens_by_file):
+
+    # tokens_by_file is passed by classify.py from this models's preprocess()
 
     keys_indices = model[1]
     tokens_by_file = model[2]
     model = model[0]
-    tokens_by_file = project.CoreNLP.tokenize_keys(files)
+    #tokens_by_file = project.CoreNLP.tokenize_keys(files)
 
     # Strip all the junk:
     corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))

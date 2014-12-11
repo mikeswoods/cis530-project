@@ -30,7 +30,22 @@ from project.utils.files import resolve
 #
 # Example: train('nb_bag_of_words')
 #
-# Note: Models are resolved relative to the project.models module
+# Note: Models are resolved relative to the project.models modu
+#
+# Conceptual workflow:
+#
+# (1) my_data = preprocess('<MyModel>')
+# 
+#     (calls <MyModel>.preprocess if it exists. If not, my_data is set to []. 
+#      In either case, <MyModel>.preprocess is expected to return a list)
+#
+# (2) model = train('<MyModel>', X_train, to_ids(X_train), Y_train, *my_data)
+#
+#     (calls <MyModel>.train)
+#
+# (3) Y_predict = predict('<MyModel>', model, X_test, to_ids(X_test), *my_data)
+#
+#     (calls <MyModel>.predict)
 #
 ################################################################################
 
@@ -44,11 +59,44 @@ def get_model(name):
     return import_module('project.models.{}'.format(name))
 
 
+def preprocess(model_name, train_files, test_files):
+    """
+    Common model preprocessing interface -- calls the specified model's 
+    preprocess(), if it exists, yielding a list of values that will be used
+    as the positional arguments *args in later calls to the model's train()
+    and predict() functions.
+
+    preprocess(model_name, [str]:train_files, [str]:test_files) -> [*])
+
+    if no preprocess() function is defined for the model specified by 
+    model_name, [] will be returned
+    """
+    assert(isinstance(model_name, str))
+
+    model_module = get_model(model_name)
+
+    # Does the preprocess() function exist for the given model? Look in its
+    # module
+    if 'preprocess' in dir(model_module):
+        
+        data = model_module.preprocess(train_files, test_files)
+
+        # Sanity check: data must be a list
+        assert(isinstance(data, list))
+
+        return data
+
+    else:
+        return []
+
+
 def train(model_name, files, ids, labels, *args, **kwargs):
     """
-    Common model train interface
+    Common model train interface -- calls the specified model's train()
+    function, yielding a trained model instance, whatever that may be
 
-    train(model_name, files, ids, labels, *args, **kwargs) -> *
+    train(str:model_name, [str]:files, [str]:ids, numpy.array(int):labels
+         ,*args, **kwargs) -> model
 
     @param str:model_name The name of the model to load from the models dir
     @param [str]:files The list of filenames to train on containing observations
@@ -59,10 +107,9 @@ def train(model_name, files, ids, labels, *args, **kwargs):
     @param {*:*}:**kwargs Additional keyword arguments to pass down to the
         called model train() function
 
-    train(model_name, files, ids, labels, *args, **kwargs) -> model
     """
     # Sanity checking:
-    assert(len(files) == len(ids))
+    assert(isinstance(model_name, str) and len(files) == len(ids))
 
     model_module = get_model(model_name)
 
@@ -71,9 +118,10 @@ def train(model_name, files, ids, labels, *args, **kwargs):
 
 def predict(model_name, trained_model, files, ids, *args, **kwargs):
     """
-    Common model prediction interface
+    Common model prediction interface -- calls the specified model's predict()
+    function, yielding an numpy.array of predicted labels
 
-    predict(model_name, model, *args, **kwargs) -> numpy.array(int)
+    predict(str:model_name, *:model, *args, **kwargs) -> numpy.array(int)
 
     @param str:model_name The name of the model to load from the models dir
     @param *:trained_model The trained model instance produced by the previous
@@ -88,11 +136,15 @@ def predict(model_name, trained_model, files, ids, *args, **kwargs):
         called model predict() function
     """
     # Sanity checking:
-    assert(len(files) == len(ids))
+    assert(isinstance(model_name, str) and len(files) == len(ids))
 
     model_module = get_model(model_name)
 
-    return model_module.predict(trained_model, files, ids, *args, **kwargs)
+    Y = model_module.predict(trained_model, files, ids, *args, **kwargs)
+
+    assert(len(files) == len(Y))
+
+    return Y
 
 
 def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *args, **kwargs):
@@ -125,6 +177,9 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
     info("> N-fold test size: {}, |train| (kept): {}, |test| (held out): {}"\
          .format(test_size, len(train_files), len(test_files)))
     
+    # Get any preprocessing data and pass it to train() anbd predict() later:
+    data = preprocess(model_name, train_files, test_files)
+
     # The observation ID is just the basename of the input file:
     train_observation_ids = filename_to_id(train_files)
 
@@ -133,8 +188,7 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
                          ,train_files \
                          ,train_observation_ids \
                          ,train_labels \
-                         ,*args \
-                         ,**kwargs)
+                         ,*data)
 
     # Same as training: the observation ID is just the basename of the input
     test_observation_ids = filename_to_id(test_files)
@@ -144,8 +198,7 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
                               ,trained_model \
                               ,test_files \
                               ,test_observation_ids \
-                              ,*args \
-                              ,**kwargs)
+                              ,*data)
 
     # Compare the accuracy of the prediction against the actual labels:
     correct_count      = 0 
