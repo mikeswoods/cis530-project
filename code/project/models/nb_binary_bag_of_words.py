@@ -7,9 +7,11 @@ from collections import Counter
 import project.CoreNLP
 from project.text import filename_to_id, strip_non_words
 
+from project import features
+
 ################################################################################
 #
-# Simple naive bayes bag-of-words classifier
+# Binary naive bayes bag-of-words classifier
 #
 ################################################################################
 
@@ -20,55 +22,25 @@ def preprocess(train_files, test_files):
     return [project.CoreNLP.tokenize_keys(train_files + test_files)]
 
 
-def train(files, ids, Y, tokens_by_file):
+def train(train_files, train_ids, Y, all_tokens_dict):
 
-    # tokens_by_file is passed by classify.py from this models's preprocess()
+    # all_tokens_dict returned by preprocess() above:
 
-    # Strip all the junk:
-    corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))
-    counts = Counter(corpus)
-
-    keys = counts.keys()
-    keys.sort()
-    keys_indices = {k:i for (i,k) in enumerate(keys, start=0)}
-
-    n = len(keys)
-    m = len(ids)
-
-    # Observations
-    X = np.zeros((m,n), dtype=np.int)
-
-    for (i,ob_id) in enumerate(ids, start=0):
-        for token in strip_non_words(tokens_by_file[ob_id]):
-            j = keys_indices[token]
-            X[i][j] = 1
+    F = features.build('binary_bag_of_words', train_ids, all_tokens_dict)
+    X = features.featurize('binary_bag_of_words', F, train_ids)
 
     nb = MultinomialNB()
     nb.fit(X, Y)
  
-    return (nb, keys_indices)
+    return (nb, F)
 
 
-def predict(model, files, ids, tokens_by_file):
+def predict(model, test_files, test_ids, all_tokens_dict):
 
     # tokens_by_file is passed by classify.py from this models's preprocess()
 
-    keys_indices = model[1]
-    model = model[0]
+    (nb, F) = model
 
-    # Strip all the junk:
-    corpus = strip_non_words(chain.from_iterable(tokens_by_file.values()))
-    counts = Counter(corpus)
+    X = features.featurize('binary_bag_of_words', F, test_ids)
 
-    n = len(keys_indices)
-    m = len(ids)
-
-    # Observations
-    X = np.zeros((m,n), dtype=np.int)
-    for (i,ob_id) in enumerate(ids, start=0):
-        for token in strip_non_words(tokens_by_file[ob_id]):
-            if token in keys_indices:
-            	j = keys_indices[token]
-            	X[i][j] = 1
-
-    return model.predict(X)
+    return nb.predict(X)

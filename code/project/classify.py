@@ -180,13 +180,10 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
     # Get any preprocessing data and pass it to train() anbd predict() later:
     data = preprocess(model_name, train_files, test_files)
 
-    # The observation ID is just the basename of the input file:
-    train_observation_ids = filename_to_id(train_files)
-
-    # Build the training model on all data but the held out data:
+    # Generate training features:
     trained_model = train(model_name \
                          ,train_files \
-                         ,train_observation_ids \
+                         ,filename_to_id(train_files) \
                          ,train_labels \
                          ,*data)
 

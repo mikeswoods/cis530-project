@@ -30,4 +30,6 @@ if __name__ == "__main__":
     #classify.test_iterations('sample', 50)
 
     classify.test('nb_binary_bag_of_words')
+    #classify.test('nb_count_bag_of_words')
+
     #classify.test_iterations('nb_binary_bag_of_words', 10)
