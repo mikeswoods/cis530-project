@@ -102,7 +102,7 @@ def featureize(F, observation_ids):
 	m = len(observation_ids)
 
 	 # Observations
-	X = np.zeros((m,n), dtype=np.int)
+	X = np.zeros((m,n), dtype=np.float)
 
 	for (i,ob_id) in enumerate(observation_ids, start=0):
 	    for token in strip_non_words(all_tokens_dict[ob_id]):

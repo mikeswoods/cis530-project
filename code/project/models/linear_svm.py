@@ -19,14 +19,14 @@ def preprocess(train_files, test_files):
 
 def train(train_files, train_ids, Y, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
 
-    X1 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
-    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, train_ids)
+    X1 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, train_ids)
+    X2 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
 
     X = (X1, X2)
 
     svm_model = svm.LinearSVC()
     svm_model.fit(np.hstack(X), Y)
- 
+
     return (svm_model,)
 
 
@@ -36,8 +36,8 @@ def predict(model, test_files, test_ids, CoreNLP_data, BAG_OF_WORDS, *args, **kw
 
     (svm_model,) = model
 
-    X1 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
-    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, test_ids)
+    X1 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, test_ids)
+    X2 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
 
     X  = (X1, X2)
 

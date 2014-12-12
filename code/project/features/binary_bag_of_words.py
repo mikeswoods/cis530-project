@@ -39,7 +39,7 @@ def build(all_tokens_dict):
 	unique_words.sort()
 
 	# Assign an index to each word
-	word_indices = {k:i for (i,k) in enumerate(unique_words, start=0)}
+	word_indices = {k:i for (i,k) in enumerate(unique_words)}
 
 	return (all_tokens_dict, word_indices)
 
@@ -53,7 +53,7 @@ def featureize(F, observation_ids):
 	m = len(observation_ids)
 
 	 # Observations
-	X = np.zeros((m,n), dtype=np.int)
+	X = np.zeros((m,n), dtype=np.float)
 
 	stemmer = PorterStemmer()
 
