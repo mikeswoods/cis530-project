@@ -30,7 +30,8 @@ if __name__ == "__main__":
     #classify.test('sample')
     #classify.test_iterations('sample', 50)
 
-    use_model = 'linear_svm'
+    #use_model = 'linear_svm'
+    use_model = 'naive_bayes'
     test_size = 0.125
 
     if len(sys.argv) > 1:

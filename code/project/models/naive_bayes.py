@@ -1,8 +1,12 @@
 import numpy as np
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn import preprocessing
 
 import project.CoreNLP
 from project import features
+from os.path import dirname
+from project.utils.files import resolve
+from project.utils.lists import index_of, pick
 
 
 def preprocess(train_files, test_files):
@@ -11,32 +15,36 @@ def preprocess(train_files, test_files):
 
     CoreNLP_data    = project.CoreNLP.all_sentences()
     all_tokens_dict = project.CoreNLP.tokens_with_key(train_files + test_files)
+    liwc_data       = resolve(dirname(__file__), '..', '..', '..', 'data', 'LIWC', 'all_data_LIWC.dat')
 
-    BAG_OF_WORDS = features.build('binary_bag_of_words', all_tokens_dict)
+    F = {
+         'bag_of_words': features.build('binary_bag_of_words', all_tokens_dict)
+        ,'LIWC':  features.build('liwc', liwc_data)
+    }
 
-    return [CoreNLP_data, BAG_OF_WORDS]
-
-
-def train(train_files, train_ids, Y, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
-
-    X1 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
-    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, train_ids)
-
-    X = (X1, X2)
-
-    nb = MultinomialNB()
-    nb.fit(np.hstack(X), Y)
- 
-    return (nb,)
+    return [CoreNLP_data, F]
 
 
-def predict(model, test_files, test_ids, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
+def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
 
-    (nb,) = model
+    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
+    X2 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
+    X3 = features.featurize('liwc', F['LIWC'], train_ids)
+    X = np.hstack((X1, X2, X3))
 
-    X1 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
-    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, test_ids)
+    M = MultinomialNB()
+    M.fit(X, Y)
 
-    X  = (X1, X2)
+    return (M,)
 
-    return nb.predict(np.hstack(X))
+
+def predict(model, test_files, test_ids, CoreNLP_data, F, *args, **kwargs):
+
+    (M,) = model
+
+    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
+    X2 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
+    X3 = features.featurize('liwc', F['LIWC'], test_ids)
+    X  = np.hstack((X1, X2, X3))
+
+    return M.predict(X)

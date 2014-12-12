@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn import svm
+from sklearn import preprocessing
 
 import project.CoreNLP
 from project import features
@@ -14,38 +15,40 @@ def preprocess(train_files, test_files):
 
     CoreNLP_data    = project.CoreNLP.all_sentences()
     all_tokens_dict = project.CoreNLP.tokens_with_key(train_files + test_files)
+    liwc_data       = resolve(dirname(__file__), '..', '..', '..', 'data', 'LIWC', 'all_data_LIWC.dat')
 
-    BAG_OF_WORDS = features.build('binary_bag_of_words', all_tokens_dict)
+    F = {
+         'bag_of_words': features.build('binary_bag_of_words', all_tokens_dict)
+        ,'LIWC':  features.build('liwc', liwc_data)
+    }
 
-    return [CoreNLP_data, BAG_OF_WORDS]
+    return [CoreNLP_data, F]
 
 
-def train(train_files, train_ids, Y, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
+def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
 
-    LIWC = features.build('liwc', resolve(dirname(__file__), '..', '..', '..', 'data', 'LIWC', 'train_data_LIWC.dat'))
-
-    X1 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, train_ids)
+    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
     X2 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
-    X3 = features.featurize('liwc', LIWC, train_ids)
+    X3 = features.featurize('liwc', F['LIWC'], train_ids)
+    
+    X = preprocessing.scale(np.hstack((X1, X2, X3)))
+    #X = np.hstack((X1, X2, X3))
 
-    X = (X1, X2, X3)
+    M = svm.LinearSVC()
+    M.fit(X, Y)
 
-    svm_model = svm.LinearSVC()
-    svm_model.fit(np.hstack(X), Y)
-
-    return (svm_model,)
+    return (M,)
 
 
-def predict(model, test_files, test_ids, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
+def predict(model, test_files, test_ids, CoreNLP_data, F, *args, **kwargs):
 
-    (svm_model,) = model
+    (M,) = model
 
-    LIWC = features.build('liwc', resolve(dirname(__file__), '..', '..', '..', 'data', 'LIWC', 'train_data_LIWC.dat'))
-
-    X1 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, test_ids)
+    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
     X2 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
-    X3 = features.featurize('liwc', LIWC, test_ids)
+    X3 = features.featurize('liwc', F['LIWC'], test_ids)
 
-    X = (X1, X2, X3)
+    #X  = np.hstack((X1, X2, X3))
+    X  = preprocessing.scale(np.hstack((X1, X2, X3)))
 
-    return svm_model.predict(np.hstack(X))
+    return M.predict(X)

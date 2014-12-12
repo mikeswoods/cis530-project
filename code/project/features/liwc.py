@@ -9,18 +9,28 @@ def read_data(filepath, exclude_lst):
 	f = open(filepath, 'r')
 	exclude_idx_lst = [False] * 81 #81 is number of features in liwc
 	feature_tuple_lst = []
-	for idx, line in enumerate(f):
+	idx = 0
+
+	for line in f:
+
+		line = line.strip()
+		if len(line) == 0:
+			continue
+
 		if idx == 0: #skip line with labels
 			labels = line.split()[1:]
 			for exclusion in exclude_lst:
 				exclude_idx = labels.index(exclusion)
 				exclude_idx_lst[exclude_idx] = True
 		else:
-			line = line.split()
-			obs_id = line[0]
+			line     = line.split()
+			obs_id   = line[0]
 			features = [float(x) for x in line[1:]]
 			filtered_features = list(compress(features, map(lambda x: not x, exclude_idx_lst)))
 			feature_tuple_lst.append((obs_id, filtered_features))
+
+		idx += 1
+
 	return feature_tuple_lst
 
 
@@ -39,8 +49,6 @@ def featureize(feature_tuple_lst, observation_ids):
 	for idx, row in enumerate(X):
 		X[idx] = feature_tuple_lst[idx][1]
 		obs_list.append(feature_tuple_lst[idx][0])
-
-	print 
 
 	I = index_of(observation_ids, obs_list)
 
