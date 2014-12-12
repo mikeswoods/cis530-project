@@ -1,12 +1,7 @@
 import numpy as np
 from sklearn.naive_bayes import GaussianNB, MultinomialNB
 
-from itertools import chain
-from collections import Counter
-
 import project.CoreNLP
-from project.text import filename_to_id, strip_non_words
-
 from project import features
 
 
