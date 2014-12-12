@@ -8,33 +8,34 @@ from project import features
 def preprocess(train_files, test_files):
 
     # Use all files (train and test) as the corpus:
-    return [project.CoreNLP.tokens_with_key(train_files + test_files)]
+
+    CoreNLP_data    = project.CoreNLP.all_sentences()
+    all_tokens_dict = project.CoreNLP.tokens_with_key(train_files + test_files)
+
+    BAG_OF_WORDS = features.build('binary_bag_of_words', all_tokens_dict)
+
+    return [CoreNLP_data, BAG_OF_WORDS]
 
 
-def train(train_files, train_ids, Y, all_tokens_dict):
+def train(train_files, train_ids, Y, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
 
-    X1 = features.featurize('sentence_info', None, train_files)
-
-    # See project.feature.binary_bag_of_words.py
-    F  = features.build('binary_bag_of_words', train_ids, all_tokens_dict)
-    X2 = features.featurize('binary_bag_of_words', F, train_ids)
+    X1 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
+    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, train_ids)
 
     X = (X1, X2)
 
     nb = MultinomialNB()
     nb.fit(np.hstack(X), Y)
  
-    return (nb, F)
+    return (nb,)
 
 
-def predict(model, test_files, test_ids, all_tokens_dict):
+def predict(model, test_files, test_ids, CoreNLP_data, BAG_OF_WORDS, *args, **kwargs):
 
-    # all_tokens_dict is ignored
+    (nb,) = model
 
-    (nb, F) = model
-
-    X1 = features.featurize('sentence_info', None, test_files)
-    X2 = features.featurize('binary_bag_of_words', F, test_ids)
+    X1 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
+    X2 = features.featurize('binary_bag_of_words', BAG_OF_WORDS, test_ids)
 
     X  = (X1, X2)
 

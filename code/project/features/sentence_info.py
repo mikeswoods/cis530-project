@@ -11,7 +11,14 @@ from project.text import strip_non_words
 from project.utils.files import read_file
 
 ################################################################################
-# Count the number of tokens per sentence
+#
+# Generates sentence features without CoreNLP, meaning it will work with any
+# file
+#
+# Computes 2 features: 
+# 1 (0) - Number of sentences per file
+# 2 (1) - Number of tokens per file
+#
 ################################################################################
 
 def featureize(F, observation_files):
@@ -21,7 +28,7 @@ def featureize(F, observation_files):
 
     m = len(observation_files)
 
-    # Observations
+    # X is Nx2
     X = np.zeros((m,2), dtype=np.int)
 
     for (i,filename) in enumerate(observation_files,start=0):

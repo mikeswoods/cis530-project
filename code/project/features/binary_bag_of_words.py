@@ -24,7 +24,7 @@ def process_words(all_words):
 
 ################################################################################
 
-def build(train_ids, all_tokens_dict):
+def build(all_tokens_dict):
 
 	# Strip all the junk:
 	corpus = process_words(chain.from_iterable(all_tokens_dict.values()))
