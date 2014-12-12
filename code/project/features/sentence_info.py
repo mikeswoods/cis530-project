@@ -29,7 +29,7 @@ def featureize(F, observation_files):
     m = len(observation_files)
 
     # X is Nx2
-    X = np.zeros((m,2), dtype=np.int)
+    X = np.zeros((m,2), dtype=np.float)
 
     for (i,filename) in enumerate(observation_files,start=0):
 

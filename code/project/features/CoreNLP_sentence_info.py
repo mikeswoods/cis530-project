@@ -18,20 +18,34 @@ from project.text import filename_to_id
 # Generates sentence features with CoreNLP. It is assumed that all observation
 # files featurized will have been processed by CoreNLP earlier
 #
-# Computes 4 features: 
-# 1 (0) - Number of sentences per file
-# 2 (1) - Number of tokens per file
-# 3 (2) - Number of NERs per file
-# 4 (3) - Number of nouns per file
-# 5 (4) - Number of words over 6 letters
+# Computes 6 features: 
+# 1 - Number of sentences per file
+# 2 - Number of tokens per file
+# 3 - Number of NERs per file
+# 4 - Number of nouns per file
+# 5 - Number of words over 6 letters
+# 6 - Sentiment score
 ################################################################################
+
+def sentiment_to_number(sentiment):
+    if sentiment == 'verynegative':
+        return -2
+    elif sentiment == 'negative':
+        return -1
+    elif sentiment == "positive":
+        return 1
+    elif sentiment == "verypositive":
+        return 2
+    else:
+        return 0
+
 
 def featureize(F, observation_files, CoreNLP_data):
 
     m = len(observation_files)
 
     # Observations
-    X = np.zeros((m, 5), dtype=np.int)
+    X = np.zeros((m, 5), dtype=np.float)
 
     for (i,filename) in enumerate(observation_files,start=0):
 
@@ -45,6 +59,7 @@ def featureize(F, observation_files, CoreNLP_data):
         ner_count   = 0
         noun_count  = 0
         over6_count = 0
+        sentiment_score = 0
 
         # Token data is a dict of the form:
         #   {'lemma': 'count', 'ner': None, 'pos': 'NNS', 'word': 'counts'}
@@ -52,6 +67,8 @@ def featureize(F, observation_files, CoreNLP_data):
         #   {'lemma': 'i.b.m.', 'ner': 'ORGANIZATION', 'pos': 'NNP', 'word': 'i.b.m.'}
         for token_data in chain(*[sd['tokens'] for sd in sent_data]):
              
+            sentiment_score += sentiment_to_number(sd['sentiment'])
+
             if len(token_data['word']) > 6:
                 over6_count += 1
 
@@ -74,5 +91,6 @@ def featureize(F, observation_files, CoreNLP_data):
         X[i][2] = ner_count
         X[i][3] = noun_count
         X[i][4] = over6_count
+        #X[i][5] = sentiment_score
 
     return X

@@ -234,17 +234,19 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
     return (accuracy, correct_count, incorrect_count)
 
 
-def test_iterations(model_name, N, n_folds=10, *args, **kwargs):
+def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
     """
     Like test, but runs N iterations, averaging the results
     """
     total_correct_count   = 0
     total_incorrect_count = 0        
 
+    info(">> Running {} iterations".format(N))
+
     for i in range(N):
         info('Iteration: {}'.format(i+1))
         (accuracy, correct_count, incorrect_count) = test(model_name \
-                                                         ,n_folds=10 \
+                                                         ,test_size=test_size \
                                                          ,suppress_output=True \
                                                          ,show_results=False \
                                                          ,*args \

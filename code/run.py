@@ -5,6 +5,7 @@ import logging
 from logging import debug, info, warn
 
 import os.path
+import sys
 
 from project import resources
 from project import text
@@ -29,6 +30,10 @@ if __name__ == "__main__":
     #classify.test('sample')
     #classify.test_iterations('sample', 50)
 
-    #classify.test('naive_bayes', test_size=0.125)
-    classify.test('linear_svm', test_size=0.125)
-    
+    use_model = 'linear_svm'
+    test_size = 0.125
+
+    if len(sys.argv) > 1:
+        classify.test_iterations(use_model, int(sys.argv[1]), test_size=test_size)
+    else:
+        classify.test(use_model, test_size=test_size)
