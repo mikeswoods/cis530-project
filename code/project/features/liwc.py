@@ -26,11 +26,13 @@ def featurize(feature_tuple_lst):
 	n = len(feature_tuple_lst)
 	d = len(feature_tuple_lst[0][1])
 	X = np.zeros((n,d), dtype=np.float)
+	obs_list = []
 	for idx, row in enumerate(X):
 		X[idx] = feature_tuple_lst[idx][1]
-	return X
+		obs_list.append(feature_tuple_lst[idx][0])
+	return (X, obs_list) 
 
 
-if __name__ == "__main__":
-	feature_tuple_lst = read_data("/Users/stuwagsmac/Desktop/nlp_final_project/cis530-project/data/LIWC/test_data_LIWC.dat", ['WC'])
-	featurize(feature_tuple_lst)
+# if __name__ == "__main__":
+# 	feature_tuple_lst = read_data("/Users/stuwagsmac/Desktop/nlp_final_project/cis530-project/data/LIWC/test_data_LIWC.dat", ['WC'])
+# 	print featurize(feature_tuple_lst)
