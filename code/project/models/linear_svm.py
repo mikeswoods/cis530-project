@@ -31,7 +31,8 @@ def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
     X2 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
     X3 = features.featurize('liwc', F['LIWC'], train_ids)
     
-    X = preprocessing.scale(np.hstack((X1, X2, X3)))
+    #X = preprocessing.scale(np.hstack((X1, X2, X3)))
+    X = preprocessing.scale(X3)
     #X = np.hstack((X1, X2, X3))
 
     M = svm.LinearSVC()
@@ -49,6 +50,7 @@ def predict(model, test_files, test_ids, CoreNLP_data, F, *args, **kwargs):
     X3 = features.featurize('liwc', F['LIWC'], test_ids)
 
     #X  = np.hstack((X1, X2, X3))
-    X  = preprocessing.scale(np.hstack((X1, X2, X3)))
+    #X  = preprocessing.scale(np.hstack((X1, X2, X3)))
+    X = preprocessing.scale(X3)
 
     return M.predict(X)

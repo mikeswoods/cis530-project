@@ -18,23 +18,21 @@ from project.utils.files import resolve
 
 logging.basicConfig(level=logging.DEBUG)
 
-################################################################################
-
-
-################################################################################
-# Main
-################################################################################
+#CoreNLP.regenerate_cache()
 
 if __name__ == "__main__":
 
     #classify.test('sample')
     #classify.test_iterations('sample', 50)
 
-    #use_model = 'linear_svm'
-    use_model = 'naive_bayes'
-    test_size = 0.125
+    # use_model = 'linear_svm'
+    # #use_model = 'naive_bayes'
+    # test_size = 0.125
 
-    if len(sys.argv) > 1:
-        classify.test_iterations(use_model, int(sys.argv[1]), test_size=test_size)
-    else:
-        classify.test(use_model, test_size=test_size)
+    # if len(sys.argv) > 1:
+    #     classify.test_iterations(use_model, int(sys.argv[1]), test_size=test_size)
+    # else:
+    #     classify.test(use_model, test_size=test_size)
+
+
+    classify.make_submission('naive_bayes')

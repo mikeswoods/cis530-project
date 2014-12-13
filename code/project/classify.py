@@ -2,6 +2,7 @@
 
 import numpy as np
 from sklearn import cross_validation
+from time import strftime
 
 from importlib import import_module
 from random import shuffle, randint
@@ -100,8 +101,10 @@ def train(model_name, files, ids, labels, *args, **kwargs):
 
     @param str:model_name The name of the model to load from the models dir
     @param [str]:files The list of filenames to train on containing observations
-    @param [str]:files Observation identifiers defined by filenames. The
+    @param [str]:ids Observation identifiers defined by filenames. The
         identifier at index i corresponds to the filename at index i
+    @param [str]:labels Labels for each observation. The
+        label at index i corresponds to the observation at index i
     @param [*]:*args Additional positional arguments to pass down to the
         called model train() function
     @param {*:*}:**kwargs Additional keyword arguments to pass down to the
@@ -128,7 +131,7 @@ def predict(model_name, trained_model, files, ids, *args, **kwargs):
         call to train()
     @param [str]:files The list of filenames that predictions are to be made 
         for
-    @param [str]:files Observation identifiers defined by filenames. The
+    @param [str]:ids Observation identifiers defined by filenames. The
         identifier at index i corresponds to the filename at index i
     @param [*]:*args Additional positional arguments to pass down to the
         called model predict() function
@@ -258,5 +261,34 @@ def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
     total_observations = total_correct_count + total_incorrect_count
     total_accuracy     = (float(total_correct_count) / float(total_observations)) * 100.0
 
-    print total_accuracy
+    print ">> {}%".format(total_accuracy)
+
+
+def make_submission(with_model):
+    """
+    Generates a submission for the leaderboard
+    """
+    train_files        = resources.train_data_files()
+    train_observations = filename_to_id(train_files)
+    train_label_dict   = resources.train_data_labels()
+    train_labels       = np.array([train_label_dict[ob_id] for ob_id in train_observations])
+
+    test_files         = resources.test_data_files()
+    test_observations  = filename_to_id(test_files)
+
+    preprocess_data = preprocess(with_model, train_files, test_files)
+
+    trained_model = train(with_model, train_files, train_observations, train_labels, *preprocess_data)
+
+    Y = predict(with_model, trained_model, test_files, test_observations, *preprocess_data)
+
+    # Write the output:
+
+    output_file = "{}/submission_{}.txt".format(resolve('..'), strftime("%Y-%m-%d_%H:%M:%S"))
+
+    with open(output_file, 'w') as f:
+        for (observation, result) in zip(test_observations, Y):
+            f.write("{} {}\n".format(observation, result))
+
+    info(">> Wrote submission output to {}".format(output_file))
 
