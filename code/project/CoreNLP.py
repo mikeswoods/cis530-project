@@ -62,23 +62,7 @@ def regenerate_cache():
 
 ################################################################################
 
-def words(filenames):
-    """
-    Tokenizes the contents of filenames using CoreNLP
-
-    Note: All files in filenames are assumed to have been processed with
-    CoreNLP prior
-    
-    @returns [[str]]
-    """
-    names = filename_to_id(filenames)
-    S = all_sentences()
-
-    get_word  = lambda token: token['word']
-    return [map(get_word, s['tokens']) for name in names for s in S[name]]
-
-
-def tokens_with_key(filenames):
+def tokens_with_key(CoreNLP_data, filenames=None):
     """
     Tokenizes the contents of filenames using CoreNLP returning a dict keyed
     by the filename
@@ -86,14 +70,14 @@ def tokens_with_key(filenames):
     Note: All files in filenames are assumed to have been processed with
     CoreNLP prior
     
+    @param dict CoreNLP_data The dict returned from all_sentences()
+    @param [str] filenames The filenames to return the tokens of. If omitted,
+        all tokens for all files appearing in CoreNLP_data will be returned
     @returns {str:[str]}
     """
-    names = filename_to_id(filenames)
-
-    S = all_sentences()
-
-    get_word  = lambda token: token['word']
-    return {name: map(get_word, s['tokens']) for name in names for s in S[name]}
+    names    = coreNLP_data.keys() if filenames is None else filename_to_id(filenames)
+    get_word = lambda token: token['word']
+    return {name: map(get_word, s['tokens']) for name in names for s in CoreNLP_data[name]}
 
 
 def all_sentences(include_test=True):

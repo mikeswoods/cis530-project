@@ -71,12 +71,12 @@ def featureize(F, observation_ids):
 
             if token in mrc_words_index:
 
-                #X[i][mrc_words_index[token]] += 1.0
+                X[i][mrc_words_index[token]] += 1.0
 
-                X[i][mrc_words_index[token]] = 1.0
+                #X[i][mrc_words_index[token]] = 1.0
 
         # Normalize by the number of tokens in each observation
-        # for j in range(0, N):
-        #     X[i][j] /= float(N)
+        for j in range(0, N):
+            X[i][j] /= float(N)
 
     return X

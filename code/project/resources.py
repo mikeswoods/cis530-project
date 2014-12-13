@@ -20,6 +20,10 @@ CoreNLP_train_labels = resolve(CoreNLP_base, 'train_labels.txt')
 CoreNLP_test_data    = resolve(CoreNLP_base, 'test_data')
 
 
+liwc_data       = resolve(dirname(__file__), '..', '..', 'data', 'LIWC', 'all_data_LIWC.dat')
+mrc_words_file  = resolve(dirname(__file__), '..', '..', 'data', 'MRC', 'MRC_words')
+
+
 def train_data_files(type='text'):
     """
     @returns: [str]
