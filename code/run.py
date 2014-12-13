@@ -41,6 +41,6 @@ if __name__ == "__main__":
         classify.make_submission(run_model)
     else:
         if args.iterations > 1:
-            classify.test_iterations(run_model, int(sys.argv[1]), test_size=args.test_size)
+            classify.test_iterations(run_model, args.iterations), test_size=args.test_size)
         else:
             classify.test(run_model, test_size=args.test_size)
