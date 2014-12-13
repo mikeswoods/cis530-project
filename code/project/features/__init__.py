@@ -1,4 +1,5 @@
 from importlib import import_module
+from logging import warn
 
 ################################################################################
 # Methods of featurizing text go here
@@ -36,3 +37,15 @@ def featurize(name, F, *args, **kwargs):
 	Featurizes the input using F condstructed from build() earlier
 	"""
 	return get_feature(name).featureize(F, *args, **kwargs)
+
+
+def test(name):
+    """
+    Calls the feature's test() function, if it exists
+    """
+    feature_module = get_feature(name)
+
+    if 'test' in dir(feature_module) and callable(feature_module.test):
+        feature_module.test()
+    else:
+        warn("No test() function exists in feature \"{}\"".format(name))

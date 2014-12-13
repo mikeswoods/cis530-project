@@ -5,7 +5,7 @@ from itertools import chain
 from collections import Counter
 
 from project.utils.counting import counts_to_probs
-from project.text import strip_non_words
+from project.utils.text import strip_junk_tokens
 
 
 ################################################################################
@@ -19,7 +19,7 @@ def compute_TF(all_tokens_dict):
 
 	@returns {str:sentence : {str:word: float:P(word|sentence)}}
 	"""
-	return {sentence: counts_to_probs(Counter(strip_non_words(words))) \
+	return {sentence: counts_to_probs(Counter(strip_junk_tokens(words))) \
 	        for (sentence, words) in all_tokens_dict.items()}
 
 
@@ -34,7 +34,7 @@ def compute_DF(all_tokens_dict):
 	# Tabulate the number of documents each word appears in
 	for words in all_tokens_dict.values():
 
-		for word in set(strip_non_words(words)):
+		for word in set(strip_junk_tokens(words)):
 
 			if word not in df_counts:
 				df_counts[word] = 1
@@ -73,7 +73,7 @@ def compute_TFIDF(all_tokens_dict):
 def build(train_ids, all_tokens_dict):
 
 	# Strip all the junk:
-	corpus = strip_non_words(chain.from_iterable(all_tokens_dict.values()))
+	corpus = strip_junk_tokens(chain.from_iterable(all_tokens_dict.values()))
 
 	# Get all unique words:
 	unique_words = list(set(corpus))
@@ -105,7 +105,7 @@ def featureize(F, observation_ids):
 	X = np.zeros((m,n), dtype=np.float)
 
 	for (i,ob_id) in enumerate(observation_ids, start=0):
-	    for token in strip_non_words(all_tokens_dict[ob_id]):
+	    for token in strip_junk_tokens(all_tokens_dict[ob_id]):
 	        j = word_indices[token]
 	        X[i][j] = TFIDF[ob_id][token]
 

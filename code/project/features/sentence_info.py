@@ -7,8 +7,8 @@ from collections import Counter
 
 from nltk.tokenize import word_tokenize
 from nltk.tokenize.punkt import PunktSentenceTokenizer
-from project.text import strip_non_words
 from project.utils.files import read_file
+from project.utils.text import strip_junk_tokens
 
 ################################################################################
 #

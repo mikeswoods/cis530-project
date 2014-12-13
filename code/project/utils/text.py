@@ -10,7 +10,10 @@ from project import utils
 # Text processing code lives here
 ################################################################################
 
-STOP_WORDS = set(stopwords.words('english')) | set(punctuation) | set(['--', "''", '""'])
+STOP_WORDS =   set(stopwords.words('english')) \
+             | set(punctuation) \
+             | set(['--', "''", '""'])
+
 
 def read_file(filetype, index=None):
     """
@@ -47,7 +50,26 @@ def filename_to_id(filenames):
     else:   
         return process(filenames)
 
-def strip_non_words(tokens):
+
+def is_number(s):
+    """
+    Test if the input is a number
+    """
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
+def is_junk_token(token):
+    """
+    Tests if the given token is considered "junk"
+    """
+    return token in STOP_WORDS
+
+
+def strip_junk_tokens(tokens):
     """
     Returns all tokens in tokens that are not in STOP_WORDS
     """

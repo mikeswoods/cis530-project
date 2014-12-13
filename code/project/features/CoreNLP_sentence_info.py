@@ -7,11 +7,8 @@ from collections import Counter
 
 from project.CoreNLP import all_sentences
 
-from nltk.tokenize import word_tokenize
-from nltk.tokenize.punkt import PunktSentenceTokenizer
-from project.text import strip_non_words
 from project.utils.files import read_file
-from project.text import filename_to_id
+from project.utils.text import filename_to_id, is_junk_token, is_number
 
 ################################################################################
 #
@@ -25,6 +22,8 @@ from project.text import filename_to_id
 # 4 - Number of nouns per file
 # 5 - Number of words over 6 letters
 # 6 - Sentiment score
+# 7 - Number of quotation marks  apearing as ''
+# 8 - Token is a number
 ################################################################################
 
 def sentiment_to_number(sentiment):
@@ -45,7 +44,7 @@ def featureize(F, observation_files, CoreNLP_data):
     m = len(observation_files)
 
     # Observations
-    X = np.zeros((m, 5), dtype=np.float)
+    X = np.zeros((m, 9), dtype=np.float)
 
     for (i,filename) in enumerate(observation_files,start=0):
 
@@ -53,23 +52,36 @@ def featureize(F, observation_files, CoreNLP_data):
         ob_id = filename_to_id(filename)
         assert(ob_id in CoreNLP_data)
 
-        sent_data   = CoreNLP_data[ob_id]
-        sent_count  = len(sent_data)
-        token_count = 0
-        ner_count   = 0
-        noun_count  = 0
-        over6_count = 0
-        sentiment_score = 0
+        sent_data       = CoreNLP_data[ob_id]
+        sent_count      = len(sent_data)
+        token_count     = 0
+        ner_count       = 0
+        noun_count      = 0
+        over6_count     = 0
+        quote_count     = 0
+        is_num_count    = 0
+        sentiment_score = abs(sum([sentiment_to_number(sd['sentiment']) for sd in sent_data]))
+
+        #sentiment_score += sentiment_to_number(sd['sentiment'])
 
         # Token data is a dict of the form:
         #   {'lemma': 'count', 'ner': None, 'pos': 'NNS', 'word': 'counts'}
         #     - or -
         #   {'lemma': 'i.b.m.', 'ner': 'ORGANIZATION', 'pos': 'NNP', 'word': 'i.b.m.'}
         for token_data in chain(*[sd['tokens'] for sd in sent_data]):
-             
-            sentiment_score += sentiment_to_number(sd['sentiment'])
 
-            if len(token_data['word']) > 6:
+            word = token_data['word']
+
+            #if is_junk_token(word):
+            #    continue
+
+            if is_number(word):
+                is_num_count += 1
+
+            if word == "''":
+                quote_count += 1
+
+            if len(word) > 6:
                 over6_count += 1
 
             if token_data['ner'] is not None:
@@ -91,6 +103,8 @@ def featureize(F, observation_files, CoreNLP_data):
         X[i][2] = ner_count
         X[i][3] = noun_count
         X[i][4] = over6_count
-        #X[i][5] = sentiment_score
+        X[i][5] = sentiment_score
+        X[i][6] = quote_count
+        X[i][7] = is_num_count
 
     return X

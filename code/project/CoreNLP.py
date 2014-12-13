@@ -17,8 +17,8 @@ import os
 from os.path import exists, splitext
 
 from project import resources
-from project.text import filename_to_id
 from project.utils.files import resolve
+from project.utils.text import filename_to_id
 
 ################################################################################
 # Generate CoreNLP output

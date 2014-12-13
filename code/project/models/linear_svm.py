@@ -27,13 +27,11 @@ def preprocess(train_files, test_files):
 
 def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
 
-    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
+    #X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
     X2 = features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
     X3 = features.featurize('liwc', F['LIWC'], train_ids)
-    
-    #X = preprocessing.scale(np.hstack((X1, X2, X3)))
-    X = preprocessing.scale(X3)
-    #X = np.hstack((X1, X2, X3))
+    X  = preprocessing.scale(np.hstack((X2, X3)))
+    #X = preprocessing.scale(X3)
 
     M = svm.LinearSVC()
     M.fit(X, Y)
@@ -45,12 +43,10 @@ def predict(model, test_files, test_ids, CoreNLP_data, F, *args, **kwargs):
 
     (M,) = model
 
-    X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
+    #X1 = features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
     X2 = features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
     X3 = features.featurize('liwc', F['LIWC'], test_ids)
-
-    #X  = np.hstack((X1, X2, X3))
-    #X  = preprocessing.scale(np.hstack((X1, X2, X3)))
-    X = preprocessing.scale(X3)
+    X  = preprocessing.scale(np.hstack((X2, X3)))
+    #X = preprocessing.scale(X3)
 
     return M.predict(X)

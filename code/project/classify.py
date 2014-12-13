@@ -9,8 +9,8 @@ from random import shuffle, randint
 from logging import debug, info, warn
 
 from project import resources
-from project.text import filename_to_id
 from project.utils.files import resolve
+from project.utils.text import filename_to_id
 
 ################################################################################
 # Classification pipeline code goes in here
