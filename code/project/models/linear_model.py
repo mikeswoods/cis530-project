@@ -10,8 +10,6 @@ from project.utils.lists import index_of, pick
 
 def preprocess(train_files, test_files):
 
-    # Use all files (train and test) as the corpus:
-
     CoreNLP_data    = project.CoreNLP.all_sentences()
     all_tokens_dict = project.CoreNLP.tokens_with_key(train_files + test_files)
     liwc_data       = resolve(dirname(__file__), '..', '..', '..', 'data', 'LIWC', 'all_data_LIWC.dat')
@@ -29,7 +27,7 @@ def preprocess(train_files, test_files):
 def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
 
     X = np.hstack([
-        features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
+         features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
         ,features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
         ,features.featurize('liwc', F['LIWC'], train_ids)
         ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids)

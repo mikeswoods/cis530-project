@@ -62,8 +62,6 @@ def featureize(F, observation_files, CoreNLP_data):
         is_num_count    = 0
         sentiment_score = abs(sum([sentiment_to_number(sd['sentiment']) for sd in sent_data]))
 
-        #sentiment_score += sentiment_to_number(sd['sentiment'])
-
         # Token data is a dict of the form:
         #   {'lemma': 'count', 'ner': None, 'pos': 'NNS', 'word': 'counts'}
         #     - or -
@@ -72,8 +70,8 @@ def featureize(F, observation_files, CoreNLP_data):
 
             word = token_data['word']
 
-            #if is_junk_token(word):
-            #    continue
+            if is_junk_token(word):
+               continue
 
             if is_number(word):
                 is_num_count += 1
