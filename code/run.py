@@ -3,7 +3,7 @@
 
 import logging
 from logging import debug, info, warn
-
+import argparse
 import os.path
 import sys
 
@@ -16,23 +16,31 @@ from project.utils.files import resolve
 
 ################################################################################
 
-logging.basicConfig(level=logging.DEBUG)
+parser = argparse.ArgumentParser()
+parser.add_argument('--submit', dest='submit', action='store_const', const=True, default=False, help="Generate a submission")
+parser.add_argument('--iters', dest='iterations', action='store', type=int, default=1, help="Run N test iterations, averaging the results")
+parser.add_argument('-T', dest='test_size', action='store', type=float, default=0.1, help="xval test size (default = 0.1")
+parser.add_argument('--recache', dest='recache', action='store_const', const=True, default=False, help="Regenerate cache data")
+parser.add_argument('model', nargs=1, help="The model to run")
+args = parser.parse_args()
 
-#CoreNLP.regenerate_cache()
+################################################################################
+
+logging.basicConfig(level=logging.DEBUG)
 
 if __name__ == "__main__":
 
-    #classify.test('sample')
-    #classify.test_iterations('sample', 50)
+    if args.recache:
+        CoreNLP.regenerate_cache()
 
-    # use_model = 'linear_svm'
-    # #use_model = 'naive_bayes'
-    # test_size = 0.125
+    run_model = args.model[0]
 
-    # if len(sys.argv) > 1:
-    #     classify.test_iterations(use_model, int(sys.argv[1]), test_size=test_size)
-    # else:
-    #     classify.test(use_model, test_size=test_size)
+    info(">> Running model \"{}\" (test_size={})".format(run_model, args.test_size))
 
-
-    classify.make_submission('naive_bayes')
+    if args.submit:
+        classify.make_submission(run_model)
+    else:
+        if args.iterations > 1:
+            classify.test_iterations(run_model, int(sys.argv[1]), test_size=args.test_size)
+        else:
+            classify.test(run_model, test_size=args.test_size)
