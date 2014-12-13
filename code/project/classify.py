@@ -2,6 +2,7 @@
 
 import numpy as np
 from sklearn import cross_validation
+from sklearn import metrics
 from time import strftime
 
 from importlib import import_module
@@ -177,7 +178,7 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
  
     assert(len(train_files) == len(train_labels) and len(test_files) == len(true_labels))
 
-    info("> N-fold test size: {}, |train| (kept): {}, |test| (held out): {}"\
+    info("> test size: {}, |train| (kept): {}, |test| (held out): {}"\
          .format(test_size, len(train_files), len(test_files)))
     
     # Get any preprocessing data and pass it to train() anbd predict() later:
@@ -200,41 +201,24 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
                               ,test_observation_ids \
                               ,*data)
 
-    # Compare the accuracy of the prediction against the actual labels:
-    correct_count      = 0 
-    total_observations = len(predicted_labels)
-
-    # For every test observation:
-    for i in range(len(test_files)):
-
-        # Get the test observsation ID:
-        test_ob_id = test_observation_ids[i]
-
-        # and compare it to the predicted label:
-        result = true_labels[i] == predicted_labels[i]
-
-        # Correct:
-        if result:
-            correct_count += 1
-
-        if not suppress_output and show_results:
-            debug("  [{}]  {}\t{}\t{}"\
-                  .format('x' if result else ' ', observation_id, predicted_labels[i], true_labels[i]))
-
-    incorrect_count = total_observations - correct_count
-    accuracy        = 0 if total_observations == 0 \
-                        else (float(correct_count) / float(total_observations)) * 100.0
+    accuracy  = metrics.accuracy_score(true_labels, predicted_labels)
+    cm        = metrics.confusion_matrix(true_labels, predicted_labels)
+    f1_score  = metrics.f1_score(true_labels, predicted_labels)
+    correct   = cm[0][0] + cm[1][1]
+    incorrect = cm[1][0] + cm[0][1]
 
     if not suppress_output:
         line = '*' * 80
         print 
         print line
-        print "Accuracy: {}%".format(accuracy, correct_count)
-        print "Correct: {} / {}".format(correct_count, total_observations)
+        print "Accuracy: {}%".format(accuracy * 100.0)
+        print "F1-Score: {}".format(f1_score)
+        print "Confusion matrix:\n", cm
+        print "Incorrect labelled as 1: {}; Incorrect labelled as -1: {}".format(cm[1][0], cm[0][1])
         print line
         print 
 
-    return (accuracy, correct_count, incorrect_count)
+    return (accuracy, correct, incorrect)
 
 
 def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):

@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.naive_bayes import GaussianNB, MultinomialNB
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn import preprocessing
 
 import project.CoreNLP
@@ -31,7 +31,7 @@ def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
         ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids)
     ])
 
-    M = MultinomialNB()
+    M = BernoulliNB()
     M.fit(X, Y)
 
     return (M,)

@@ -53,8 +53,14 @@ def build(mrc_words_file, all_tokens_dict):
     return (all_tokens_dict, mrc_words_index)
 
 
-def featureize(F, observation_ids):
+def featureize(F, observation_ids, binary=False):
+    """
+    If binary = True, the X[i][j] position will be set to 1 if some word in the 
+    observation appears in the MRC word list at position j, otherwise 0
 
+    If binary = False, the X[i][j] position will be set to 
+    (word count / number of tokens in the observation), otherwise 0.0
+    """
     (all_tokens_dict, mrc_words_index) = F
 
     n = len(mrc_words_index)
@@ -71,12 +77,14 @@ def featureize(F, observation_ids):
 
             if token in mrc_words_index:
 
-                X[i][mrc_words_index[token]] += 1.0
+                if binary:
+                    X[i][mrc_words_index[token]] = 1
+                else:    
+                    X[i][mrc_words_index[token]] += 1.0
 
-                #X[i][mrc_words_index[token]] = 1.0
-
-        # Normalize by the number of tokens in each observation
-        for j in range(0, N):
-            X[i][j] /= float(N)
+        if not binary:
+            # Normalize by the number of tokens in each observation
+            for j in range(0, N):
+                X[i][j] /= float(N)
 
     return X
