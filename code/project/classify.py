@@ -206,6 +206,7 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
     f1_score  = metrics.f1_score(true_labels, predicted_labels)
     correct   = cm[0][0] + cm[1][1]
     incorrect = cm[1][0] + cm[0][1]
+    incorrect_observations = set()
 
     if not suppress_output:
         line = '*' * 80
@@ -215,10 +216,16 @@ def test(model_name, test_size=0.1, suppress_output=False, show_results=False, *
         print "F1-Score: {}".format(f1_score)
         print "Confusion matrix:\n", cm
         print "Incorrect labelled as 1: {}; Incorrect labelled as -1: {}".format(cm[1][0], cm[0][1])
+        print "Incorrect:"
+        for i in range(len(test_observation_ids)):
+            if true_labels[i] != predicted_labels[i]:
+                print "TRUE: {}, PREDICTED: {}, LEAD: {}".format(true_labels[i], predicted_labels[i], test_observation_ids[i])
+                incorrect_observations.add(test_observation_ids[i])
+        print
         print line
         print 
 
-    return (accuracy, correct, incorrect)
+    return (accuracy, correct, incorrect, incorrect_observations)
 
 
 def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
@@ -230,20 +237,29 @@ def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
 
     info(">> Running {} iterations".format(N))
 
+    all_incorrect_observations = set()
+
     for i in range(N):
         info('Iteration: {}'.format(i+1))
-        (accuracy, correct_count, incorrect_count) = test(model_name \
-                                                         ,test_size=test_size \
-                                                         ,suppress_output=True \
-                                                         ,show_results=False \
-                                                         ,*args \
-                                                         ,**kwargs)
+        (accuracy, correct_count, incorrect_count, incorrect_observations) = \
+            test(model_name
+                ,test_size=test_size \
+                ,suppress_output=True \
+                ,show_results=False \
+                ,*args \
+                ,**kwargs)
 
+        incorrect_observations |= incorrect_observations
         total_correct_count += correct_count
         total_incorrect_count += incorrect_count
 
     total_observations = total_correct_count + total_incorrect_count
     total_accuracy     = (float(total_correct_count) / float(total_observations)) * 100.0
+
+    print "All incorrect observations:"
+    incorrect_observations = list(incorrect_observations)
+    for ob in sorted(incorrect_observations):
+        print ob
 
     print ">> {}%".format(total_accuracy)
 

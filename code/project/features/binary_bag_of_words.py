@@ -36,7 +36,7 @@ def featureize(F, observation_ids):
 	n = len(corenlp_words_index)
 	m = len(observation_ids)
 
-	 # Observations
+	# Observations
 	X = np.zeros((m,n), dtype=np.float)
 
 	for (i,ob_id) in enumerate(observation_ids, start=0):

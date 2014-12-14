@@ -44,7 +44,7 @@ def featureize(F, observation_files, CoreNLP_data):
     m = len(observation_files)
 
     # Observations
-    X = np.zeros((m, 9), dtype=np.float)
+    X = np.zeros((m, 7), dtype=np.float)
 
     for (i,filename) in enumerate(observation_files,start=0):
 
@@ -59,7 +59,7 @@ def featureize(F, observation_files, CoreNLP_data):
         noun_count      = 0
         over6_count     = 0
         quote_count     = 0
-        is_num_count    = 0
+        #is_num_count    = 0
         sentiment_score = abs(sum([sentiment_to_number(sd['sentiment']) for sd in sent_data]))
 
         # Token data is a dict of the form:
@@ -73,8 +73,8 @@ def featureize(F, observation_files, CoreNLP_data):
             if is_junk_token(word):
                continue
 
-            if is_number(word):
-                is_num_count += 1
+            # if is_number(word):
+            #     is_num_count += 1
 
             if word == "''":
                 quote_count += 1
@@ -103,6 +103,6 @@ def featureize(F, observation_files, CoreNLP_data):
         X[i][4] = over6_count
         X[i][5] = sentiment_score
         X[i][6] = quote_count
-        X[i][7] = is_num_count
+        #X[i][7] = is_num_count
 
     return X

@@ -55,9 +55,6 @@ def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
     info("Running gridsearch...")
     estimator = GridSearchCV(pipe, {'pca__n_components': n_components, 'logistic__C': Cs})
 
-    print pca.n_components_
-
-
     info("Fitting...")
     estimator.fit(X, Y)
 
