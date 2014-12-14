@@ -6,6 +6,7 @@ from logging import debug, info, warn
 import argparse
 import sys
 
+from project import resources
 from project import CoreNLP
 from project import classify
 from project import features
@@ -39,6 +40,7 @@ if __name__ == "__main__":
     info(">> Running model \"{}\" (test_size={})".format(run_model, args.test_size))
 
     if args.submit:
+        resources.SUBMIT_MODE = True
         classify.make_submission(run_model)
     else:
         if args.iterations > 1:

@@ -249,7 +249,7 @@ def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
                 ,*args \
                 ,**kwargs)
 
-        incorrect_observations |= incorrect_observations
+        all_incorrect_observations |= incorrect_observations
         total_correct_count += correct_count
         total_incorrect_count += incorrect_count
 
@@ -257,8 +257,7 @@ def test_iterations(model_name, N, test_size=0.1, *args, **kwargs):
     total_accuracy     = (float(total_correct_count) / float(total_observations)) * 100.0
 
     print "All incorrect observations:"
-    incorrect_observations = list(incorrect_observations)
-    for ob in sorted(incorrect_observations):
+    for ob in sorted(list(all_incorrect_observations)):
         print ob
 
     print ">> {}%".format(total_accuracy)
@@ -268,6 +267,7 @@ def make_submission(with_model):
     """
     Generates a submission for the leaderboard
     """
+
     train_files        = resources.train_data_files()
     train_observations = filename_to_id(train_files)
     train_label_dict   = resources.train_data_labels()

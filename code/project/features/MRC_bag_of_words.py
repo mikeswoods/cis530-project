@@ -43,17 +43,17 @@ def test():
     mrc_words_index = {word: i for (i,word) in enumerate(mrc_words)}
 
 
-def build(mrc_words_file, all_tokens_dict):
+def build(mrc_words_file):
 
     mrc_words  = [word.strip() for word in read_file(mrc_words_file).split() if word.strip() != '']
     mrc_words.sort()
 
     mrc_words_index = {word: i for (i,word) in enumerate(mrc_words)}
 
-    return (all_tokens_dict, mrc_words_index)
+    return (mrc_words_index,)
 
 
-def featureize(F, observation_ids, binary=False):
+def featureize(F, observation_ids, all_tokens_dict, binary=False):
     """
     If binary = True, the X[i][j] position will be set to 1 if some word in the 
     observation appears in the MRC word list at position j, otherwise 0
@@ -61,7 +61,7 @@ def featureize(F, observation_ids, binary=False):
     If binary = False, the X[i][j] position will be set to 
     (word count / number of tokens in the observation), otherwise 0.0
     """
-    (all_tokens_dict, mrc_words_index) = F
+    (mrc_words_index,) = F
 
     n = len(mrc_words_index)
     m = len(observation_ids)

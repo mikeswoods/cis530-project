@@ -110,7 +110,7 @@ def to_production_rules(parse):
 
 def test():
 
-    S      = all_sentences()
+    S      = all_sentences('train')
     parses = (sent_data['parse'] for sentences in S.values() for sent_data in sentences)
     rules  = set(chain.from_iterable(map(to_production_rules, parses)))
 
@@ -155,12 +155,12 @@ def featureize(F, observation_ids, CoreNLP_data, binary=False):
 
         for rule in observation_rules:
             
-            assert(rule in rules_index)
+            if rule in rules_index:
 
-            if binary:
-                X[i][rules_index[rule]] = 1
-            else:
-                X[i][rules_index[rule]] += 1.0
+                if binary:
+                    X[i][rules_index[rule]] = 1
+                else:
+                    X[i][rules_index[rule]] += 1.0
 
         if not binary:
             # Normalize by the number of tokens in each observation

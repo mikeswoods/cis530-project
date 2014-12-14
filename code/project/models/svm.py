@@ -11,27 +11,36 @@ from project.utils.lists import index_of, pick
 
 def preprocess(train_files, test_files):
 
-    CoreNLP_data    = project.CoreNLP.all_sentences()
-    all_tokens_dict = project.CoreNLP.tokens_with_key(CoreNLP_data, train_files + test_files)
+    CoreNLP_train_data    = project.CoreNLP.all_sentences('train')
+
+    # If we're in submit mode, use the actual train and test sets,
+    # otherwise just use train for both
+
+    if resources.SUBMIT_MODE:
+        CoreNLP_test_data = project.CoreNLP.all_sentences('test')
+    else:
+        CoreNLP_test_data = CoreNLP_train_data
+        
+    #all_train_tokens_dict = project.CoreNLP.tokens_with_key(CoreNLP_train_data)
 
     F = {
-        #'bag_of_words': features.build('binary_bag_of_words', all_tokens_dict)
+        # 'bag_of_words': features.build('binary_bag_of_words', all_train_tokens_dict)
          'LIWC':  features.build('liwc', resources.liwc_data)
-        ,'MRC_bag_of_words':  features.build('MRC_bag_of_words', resources.mrc_words_file, all_tokens_dict)
-        ,'production_rules':  features.build('production_rules', CoreNLP_data)
+        ,'MRC_bag_of_words':  features.build('MRC_bag_of_words', resources.mrc_words_file)
+        ,'production_rules':  features.build('production_rules', CoreNLP_train_data)
     }
 
-    return [CoreNLP_data, F]
+    return [CoreNLP_train_data, CoreNLP_test_data, F]
 
 
-def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
+def train(train_files, train_ids, Y, CoreNLP_train_data, CoreNLP_test_data, F, *args, **kwargs):
 
     X = preprocessing.scale(np.hstack([
-        #features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
-         features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_data)
+        # features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
+         features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_train_data)
         ,features.featurize('liwc', F['LIWC'], train_ids)
-        ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids, binary=False)
-        ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_data, binary=True)
+        ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids, project.CoreNLP.tokens_with_key(CoreNLP_train_data), binary=True)
+        ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_train_data, binary=True)
     ]))
 
     M = svm.LinearSVC(class_weight={1: 0.58, -1: 0.42})
@@ -40,16 +49,16 @@ def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
     return (M,)
 
 
-def predict(model, test_files, test_ids, CoreNLP_data, F, *args, **kwargs):
+def predict(model, test_files, test_ids, CoreNLP_train_data, CoreNLP_test_data, F, *args, **kwargs):
 
     (M,) = model
 
     X = preprocessing.scale(np.hstack([
-        #features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
-         features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_data)
-        ,features.featurize('liwc', F['LIWC'], test_ids)
-        ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], test_ids, binary=False)
-        ,features.featurize('production_rules', F['production_rules'], test_ids, CoreNLP_data, binary=True)
+         # features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
+          features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_test_data)
+         ,features.featurize('liwc', F['LIWC'], test_ids)
+         ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], test_ids, project.CoreNLP.tokens_with_key(CoreNLP_test_data), binary=True)
+         ,features.featurize('production_rules', F['production_rules'], test_ids, CoreNLP_test_data, binary=True)
     ]))
 
     return M.predict(X)

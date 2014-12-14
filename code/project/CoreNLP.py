@@ -26,7 +26,8 @@ from project.utils.text import filename_to_id
 
 USE_ANNOTATORS = ['tokenize','ssplit', 'pos', 'lemma', 'ner', 'parse', 'sentiment', 'relation']
 
-CORENLP_DATA_CACHE = resolve(resources.CoreNLP_base, 'CoreNLP.bin')
+CORENLP_TRAIN_DATA_CACHE = resolve(resources.CoreNLP_base, 'CoreNLP_train.bin')
+CORENLP_TEST_DATA_CACHE = resolve(resources.CoreNLP_base, 'CoreNLP_test.bin')
 
 def _create_CoreNLP_trainxml():
     """
@@ -54,11 +55,10 @@ def regenerate_cache():
     """
     Regenerates the CoreNLP data cache
     """
-    if exists(CORENLP_DATA_CACHE):
-        os.remove(CORENLP_DATA_CACHE)
-
-    all_sentences(include_test=True)
-
+    if exists(CORENLP_TRAIN_DATA_CACHE):
+        os.remove(CORENLP_TRAIN_DATA_CACHE)
+    if exists(CORENLP_TEST_DATA_CACHE):
+        os.remove(CORENLP_TEST_DATA_CACHE)
 
 ################################################################################
 
@@ -75,12 +75,12 @@ def tokens_with_key(CoreNLP_data, filenames=None):
         all tokens for all files appearing in CoreNLP_data will be returned
     @returns {str:[str]}
     """
-    names    = coreNLP_data.keys() if filenames is None else filename_to_id(filenames)
+    names    = CoreNLP_data.keys()
     get_word = lambda token: token['word']
     return {name: map(get_word, s['tokens']) for name in names for s in CoreNLP_data[name]}
 
 
-def all_sentences(include_test=True):
+def all_sentences(for_data):
     """
     Returns a dict of all sentences data derived from CoreNLP. The key
     is the truncated filename (observation-ID), and the value is the output
@@ -88,31 +88,41 @@ def all_sentences(include_test=True):
 
     @returns: {str: <sentence-data>}
     """
+    assert(for_data in ('train', 'test'))
+
+    if for_data == 'train':
+        data_cache_file = CORENLP_TRAIN_DATA_CACHE
+    else:
+        data_cache_file = CORENLP_TEST_DATA_CACHE
+
     # If there's cached data, load it:
-    if exists(CORENLP_DATA_CACHE):
+    if exists(data_cache_file):
 
-        debug('> Loading cached CoreNLP data from {}'.format(CORENLP_DATA_CACHE))
+        debug('> Loading cached CoreNLP data from {}'.format(data_cache_file))
 
-        with open(CORENLP_DATA_CACHE, 'r') as f:
+        with open(data_cache_file, 'r') as f:
             return pickle.load(f)
 
     # Otherwise, generate the output from parse_xml()
-    debug('> CoreNLP data {} not found; caching...'.format(CORENLP_DATA_CACHE))
+    debug('> CoreNLP data {} not found; caching...'.format(data_cache_file))
 
-    filenames = resources.train_data_files('CoreNLP')
+    if for_data == 'train':
+        filenames = resources.train_data_files('CoreNLP')
+    else:
+        filenames = resources.test_data_files('CoreNLP')
 
-    if include_test:
-        filenames += resources.test_data_files('CoreNLP')
+    #if include_test:
+    #    filenames += resources.test_data_files('CoreNLP')
 
     # parse_xml(filename)[1] means to only keep the actual sentence data,
     # not the file name/observation identifier. Also, lops off the ".xml" part
     # from the CoreNLP output filename preserving the original filename
     data = {splitext(filename_to_id(filename))[0]: parse_xml(filename)[1] for filename in filenames}
 
-    with open(CORENLP_DATA_CACHE, 'w') as f:
+    with open(data_cache_file, 'w') as f:
         pickle.dump(data, f)
 
-    debug('> CoreNLP data cached to {}'.format(CORENLP_DATA_CACHE))
+    debug('> CoreNLP data cached to {}'.format(data_cache_file))
 
     return data
 

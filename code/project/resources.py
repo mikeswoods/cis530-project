@@ -7,6 +7,9 @@ from project.utils.files import resolve, get_files, from_lines
 # resource locations, etc.
 ################################################################################
 
+# Flag set if we're running in submit mode:
+SUBMIT_MODE = False
+
 
 text_base            = resolve(dirname(__file__), '..', '..', 'data', 'text')
 CoreNLP_base         = resolve(dirname(__file__), '..', '..', 'data', 'CoreNLP')
