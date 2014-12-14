@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.linear_model import LogisticRegression, BayesianRidge, RANSACRegressor
+from sklearn.linear_model import LogisticRegression, RandomizedLogisticRegression
 
 import project.CoreNLP
 from project import features
@@ -32,7 +32,8 @@ def train(train_files, train_ids, Y, CoreNLP_data, F, *args, **kwargs):
         ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_data, binary=True)
     ])
 
-    M = LogisticRegression(penalty='l1', class_weight={1: 0.58, -1:0.42})
+    #M = RandomizedLogisticRegression()
+    M = LogisticRegression(penalty='l2', class_weight={1: 0.58, -1:0.42})
     M.fit(X, Y)
 
     return (M,)
