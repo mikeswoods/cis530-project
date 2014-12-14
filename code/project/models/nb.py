@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn import preprocessing
 
+from logging import info
 import project.CoreNLP
 from project import features
 from project import resources
