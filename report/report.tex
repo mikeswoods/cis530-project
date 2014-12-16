@@ -19,7 +19,7 @@ oneside, % One page layout (no page indentation)
 headinclude,footinclude, % Extra spacing for the header and footer
 BCOR5mm, % Binding correction
 ]{scrartcl}
-
+\usepackage{fancyvrb}
 \input{structure.tex} 
 
 \hyphenation{Fortran hy-phen-ation}
@@ -40,11 +40,16 @@ BCOR5mm, % Binding correction
 % HEADERS
 %-------------------------------------------------------------------------------
 
-\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}} % The header for all pages (oneside) or for even pages (twoside)
-%\renewcommand{\subsectionmark}[1]{\markright{\thesubsection~#1}} % Uncomment when using the twoside option - this modifies the header on odd pages
-\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} % The header style
+% The header for all pages (oneside) or for even pages (twoside)
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}}
 
-\pagestyle{scrheadings} % Enable the headers specified in this block
+% Uncomment when using the twoside option - this modifies the header on
+% odd pages
+%\renewcommand{\subsectionmark}[1]{\markright{\thesubsection~#1}} 
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}}
+
+ % Enable the headers specified in this block
+\pagestyle{scrheadings}
 
 %-------------------------------------------------------------------------------
 
@@ -52,7 +57,7 @@ BCOR5mm, % Binding correction
 
 \setcounter{tocdepth}{2}
 
-\tableofcontents % Print the table of contents
+%\tableofcontents % Print the table of contents
 
 %-------------------------------------------------------------------------------
 % Introduction
@@ -62,10 +67,10 @@ BCOR5mm, % Binding correction
 
 Text classification on the basis of high or low information density has until
 recently
-\footnote{Nenkova \& Yang ``Detecting Information-Dense Texts in Multiple News Domains'' 2014 
+\footnote{Nenkova \& Yang ``Detecting Information-Dense Texts in Multiple News Domains'' 2014 \newline 
 \url{http://www.aaai.org/ocs/index.php/AAAI/AAAI14/paper/view/8430/8622}} 
-been ignored. Building off the past research, we
-seek to improve accuracy on classifying sentences with high information density.
+been ignored. Building off the past research, we seek to improve accuracy on
+classifying sentences with high information density.
 
 Information density has several applications. Text summarization has relied
 partially on the use of KL divergence--the measurement of a difference between
@@ -126,9 +131,10 @@ speeches, poems, or transcribed daily speech''
 % === Stanford CoreNLP ===
 \paragraph{\textbf{Stanford CoreNLP}}
 \hfill \newline \noindent \url{http://nlp.stanford.edu/software/corenlp.shtml}
-\hfill \newline \noindent A suite of text processing tools capable of part-of-speech (POS) tagging, named
-entity recognition (NER), tokenization, lemmatization, sentiment analysis, as
-well as dependency and syntactic parse extraction.
+\hfill \newline \noindent A suite of text processing tools capable of part-of-
+speech (POS) tagging, named entity recognition (NER), tokenization,
+lemmatization, sentiment analysis, as well as dependency and syntactic parse
+extraction.
 
 % === scikit-learn ===
 \paragraph{\textbf{scikit-learn}}
@@ -139,9 +145,10 @@ implementations for a large selection of popular classifiers.
 % === NumPy ===
 \paragraph{\textbf{NumPy}}
 \hfill \newline \noindent \url{http://www.numpy.org}
-\hfill \newline \noindent A scientific computing package for Python providing 
-native n-dimensional array datatype, as well as various linear algebra, 
-statistical, and general mathematical functions suitable for ``''number crunching''.
+\hfill \newline \noindent A scientific computing package for Python providing
+native n-dimensional array datatype, as well as various linear algebra,
+statistical, and general mathematical functions suitable for ``''number
+crunching''.
 
 % === NLTK ===
 \paragraph{\textbf{NLTK}}
@@ -159,7 +166,7 @@ features in our approach to the problem of textual information density
 classification.
 
 % === CoreNLP word count--binary bag-of-words ===
-\paragraph{\textbf{CoreNLP word count--binary bag-of-words}}
+\paragraph{\textbf{(1) CoreNLP word count--binary bag-of-words}}
 \hfill \newline \noindent \textit{9799 dimensions}. All unique tokens occurring
 between \texttt{<word></word>} tags in the generated XML obtained from running
 all training and test files through the CoreNLP tool were collected into a list
@@ -173,7 +180,7 @@ the $i$-th word in the bag-of-words model, the $i$-th position in the feature
 vector was set to $1$.
 
 % === CoreNLP sentence information ===
-\paragraph{\textbf{CoreNLP sentence information}} 
+\paragraph{\textbf{(2) CoreNLP sentence information}} 
 \hfill \newline \noindent \textit{7 dimensions}. To construct the feature
 vector, each processed lead had a number of pieces of information extracted from
 it directly or from the XML file generated from it using CoreNLP. These
@@ -189,8 +196,18 @@ impact on information density ($+$/$-$):
 	\item The aggregate absolute sentiment score of the lead. Each sentence was assigned a numeric score according to the following rubric: ``very negative'': $2$, ``negative'': $1$, ``neutral'': $0$, ``positive'': $1$, and ``very positive'': $2$. The scores were then summed and the absolute value was taken. ($-$)
 \end{itemize}
 
+% === LIWC ===
+\paragraph{\textbf{(3) LIWC}}
+\hfill \newline \noindent \textit{78 dimensions}. Our hypothesis was that words
+indicating sentiment and emotions might indicate sentences that were less
+information dense. We thought these might be positively correlated with
+information density: present tense, numbers, impersonal pronouns, and causation.
+We also believed multiple attributes may be negatively correlated, including:
+1st person usage, auxillary verbs and past tense, quantifiers, and positive and
+negative emotion.
+
 % === CoreNLP production rule count--binary bag-of-words ===
-\paragraph{\textbf{CoreNLP production rule count--binary bag-of-words}}
+\paragraph{\textbf{(4) CoreNLP production rule count--binary bag-of-words}}
 \hfill \newline \noindent \textit{5654 dimensions}. The syntactic parse
 generated by CoreNLP for each sentence from a given lead is extracted from the
 corresponding \texttt{<parse></parse>} tag in the corresponding XML file. A
@@ -207,17 +224,7 @@ feature vector is set to $1$. The belief was that perhaps certain production
 rules may be related with information density.
 
 % === LIWC ===
-\paragraph{\textbf{LIWC}}
-\hfill \newline \noindent \textit{78 dimensions}. Our hypothesis was that words
-indicating sentiment and emotions might indicate sentences that were less
-information dense. We thought these might be positively correlated with
-information density: present tense, numbers, impersonal pronouns, and causation.
-We also believed multiple attributes may be negatively correlated, including:
-1st person usage, auxillary verbs and past tense, quantifiers, and positive and
-negative emotion.
-
-% === LIWC ===
-\paragraph{\textbf{MRC dictionary--binary bag-of-words}}
+\paragraph{\textbf{(5) MRC dictionary--binary bag-of-words}}
 \hfill \newline \noindent \textit{4923 dimensions}. 
 The MRC Psycholinguistic database word dictionary consisting of $4,923$ words
 was used to construct a binary bag-of-words model in a similar manner to the
@@ -252,7 +259,7 @@ configurations are as follows:
 %-------------------------------------------------------------------------------
 % Final system
 %-------------------------------------------------------------------------------
-
+\break
 \section{Final system}
 
 \subsection{Team}
@@ -260,7 +267,7 @@ configurations are as follows:
 We are team ``$W^2$'', or as it appears on the leaderboard in ASCII,
 \texttt{W\string^2} in.
 
-\section{System Design}
+\subsection{System Design}
 
 From the very onset of the project, we exercised great discipline in producing
 what we believe to a clean, extensible system for making predictions about text.
@@ -273,31 +280,30 @@ The effort paid of many times over, as creating new models and features was the
 same as defining a new Python module. The model or feature could then later be
 referred to by name and maniupulated through set of generic functions.
 
-\section{Interface}
 \subsection{Models}
 
 All models are implemented as regular Python modules in the
-\text{project.models} package in the project's \texttt{code} directory.
+\texttt{project.models} package in the project \texttt{code} directory.
 Additionally, all model modules are expected to define the functions described
 below, as this provides a common interface to interact with the model
-implementation:
-
-\begin{verbatim}
+implementation: 
+\begin{Verbatim}[frame=single]
 def preprocess(model_name, train_files, test_files)
 def train(model_name, train_files,  labels, *args, **kwargs)
-def predict(model_name, trained_model, test_files, *args, **kwargs)
-\end{verbatim}
+def predict(model_name, model_obj, test_files, *args, **kwargs)
+\end{Verbatim}
 
 \subsubsection{Lookup}
 \noindent A module can then easily be looked up by name like so:
-\begin{verbatim}
+\begin{Verbatim}[frame=single]
 linear_model = get_model('linear_model')
-\end{verbatim}
-
-\begin{verbatim}
+\end{Verbatim}
+\noindent which is defined in the following simple function which makes use
+of the \texttt{importlib} from the Python standard libary:
+\begin{Verbatim}[frame=single]
 def get_model(name):
-    return importlib.import_module('project.models.{}'.format(name))
-\end{verbatim}
+    return importlib.import_module('project.models.'+name)
+\end{Verbatim}
 
 \subsection{Features}
 
@@ -307,34 +313,84 @@ this allows for quick prototyping and iterative refirement of new feature types.
 \noindent In a similar manner to models described above, features (or more
 accurately feature-izers) can easily be resolved with the following function:
 
-\begin{verbatim}
+\begin{Verbatim}[frame=single]
 def get_feature(name): return
-    importlib.import_module('project.features.{}'.format(name))
-\end{verbatim}
+    importlib.import_module('project.features.'+name)
+\end{Verbatim}
 
 \noindent Features can also expose the following functions
 
-\begin{verbatim}
+\begin{Verbatim}[frame=single]
 def build(feature_name, *args, **kwargs)
 def featurize(feature_name, feature_obj=None, *args, **kwargs)
-\end{verbatim}
+\end{Verbatim}
 
 \noindent where \texttt{build} performs the initial setup work needed to
-featurize an input, and texttt{featurize} performs the actual conversion of an
+featurize an input, and \texttt{featurize} performs the actual conversion of an
 input into a feature vector.
 
 \subsection{Pipeline}
 
 The conceptual classification pipeline is outlined below in pseudocode, which
-succintly describes the conceptual flow of information, from initial raw text 
-to final predicted labels:
+describes the general flow of information in the system, initially from raw
+input text to final predicted labels:
 
-\begin{verbatim}
-optional  = preprocess('<my-model>', TRAIN_FILES, TEST_FILES)
-model_obj = train('<my-model>', TRAIN_FILES, TRAIN_LABELS, *optional)
-return      predict('<my-model>', model_obj, TEST_FILES, *optional)
-\end{verbatim}
+\begin{Verbatim}[frame=single]
+TRAIN_FILES = framework.get_train_files()
 
-%------------------------------------------------
+if in-submission-mode:
+    TEST_FILES = framework.get_test_files()
+else:
+    TEST_FILES = TRAIN_FILES
+
+# if the model defines an optional preprocess() function, 
+# call it:
+if is_preprocess_defined('foo')
+    optional = preprocess('foo', TRAIN_FILES, TEST_FILES)
+else:
+    optional = []
+
+model_obj = train('foo', TRAIN_FILES, TRAIN_LABELS, *optional)
+
+return predict('foo', model_obj, TEST_FILES, *optional)
+\end{Verbatim}
+
+\subsection{Testing}
+
+Finally, the above pipeline is invoked from within the context of a testing
+framework we designed. The framework itself provides the input files to the 
+prediction pipeline, which may vary depending on whether an actual prediction
+submission is being generated. If a leaderboard submission is to be generated, 
+then actual test data is supplied to the pipeline by the framework, otherwise 
+some holdout from the training data is used as test data. After the predictions 
+have been made, the framework provides basic reporting information regarding 
+the accuracy, precision, and F-score of the results.
+
+%-------------------------------------------------------------------------------
+% Experiments and Outcomes
+%-------------------------------------------------------------------------------
+\break
+\section{Outcomes}
+
+All experiments were conducted using the \texttt{scikit-learn} 
+\texttt{cross\_validation.train\_test\_split()}, function with $10\%$ of
+the training data held out as the test set. \\
+
+\noindent The all submission configurations and related results are 
+summarized in the table below. All feature sets are referenced by number as 
+given in section 2.3.
+
+\subsection{Submission results}
+\begin{center}
+    \begin{tabular}{| c | c | l | l|}
+    \hline
+    Attempt & Accuracy  & Model               & Feature sets                         \\ \hline
+    1       & $75.6\%$  & Logistic regression & $1$, $2$, $3$                        \\ \hline
+    2       & $76.0\%$  & Logistic regression /w PCA &  $2$, $3$, $4$, $5$ \\ \hline
+    3       & $78.4\%$  & Ensemble classifier &$2$, $3$, $4$, $5$                    \\ \hline
+    4       & $78.4\%$  & Ensemble classifier & $1$, $2$, $3$, $4$, $5$              \\ \hline
+    5       & --  & --  & --            \\ \hline
+    \end{tabular}
+\end{center}
 
 \end{document}
