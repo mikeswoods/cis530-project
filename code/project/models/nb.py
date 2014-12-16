@@ -24,10 +24,11 @@ def preprocess(train_files, test_files):
     #all_train_tokens_dict = project.CoreNLP.tokens_with_key(CoreNLP_train_data)
 
     F = {
-        # 'bag_of_words': features.build('binary_bag_of_words', all_train_tokens_dict)
-         'LIWC':  features.build('liwc', resources.liwc_data)
-        ,'MRC_bag_of_words':  features.build('MRC_bag_of_words', resources.mrc_words_file)
-        ,'production_rules':  features.build('production_rules', CoreNLP_train_data)
+      # 'bag_of_words': features.build('binary_bag_of_words', all_train_tokens_dict)
+       'LIWC':  features.build('liwc', resources.liwc_data)
+      ,'MRC_bag_of_words':  features.build('MRC_bag_of_words', resources.mrc_words_file)
+      ,'dependency_relations': features.build('dependency_relations', CoreNLP_train_data)
+      ,'production_rules':  features.build('production_rules', CoreNLP_train_data)
     }
 
     return [CoreNLP_train_data, CoreNLP_test_data, F]
@@ -36,11 +37,12 @@ def preprocess(train_files, test_files):
 def train(train_files, train_ids, Y, CoreNLP_train_data, CoreNLP_test_data, F, *args, **kwargs):
 
     X = np.hstack([
-        # features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
-         features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_train_data)
-        ,features.featurize('liwc', F['LIWC'], train_ids)
-        ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids, project.CoreNLP.tokens_with_key(CoreNLP_train_data), binary=True)
-        ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_train_data, binary=True)
+       # features.featurize('binary_bag_of_words', F['bag_of_words'], train_ids)
+       features.featurize('CoreNLP_sentence_info', None, train_files, CoreNLP_train_data)
+      ,features.featurize('liwc', F['LIWC'], train_ids)
+      ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], train_ids, project.CoreNLP.tokens_with_key(CoreNLP_train_data), binary=True)
+      ,features.featurize('dependency_relations', F['dependency_relations'], train_ids, CoreNLP_train_data, binary=True)
+      ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_train_data, binary=True)
     ])
 
     M = BernoulliNB()
@@ -54,11 +56,12 @@ def predict(model, test_files, test_ids, CoreNLP_train_data, CoreNLP_test_data, 
     (M,) = model
 
     X = np.hstack([
-         # features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
-          features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_test_data)
-         ,features.featurize('liwc', F['LIWC'], test_ids)
-         ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], test_ids, project.CoreNLP.tokens_with_key(CoreNLP_test_data), binary=True)
-         ,features.featurize('production_rules', F['production_rules'], test_ids, CoreNLP_test_data, binary=True)
+       # features.featurize('binary_bag_of_words', F['bag_of_words'], test_ids)
+       features.featurize('CoreNLP_sentence_info', None, test_files, CoreNLP_test_data)
+      ,features.featurize('liwc', F['LIWC'], test_ids)
+      ,features.featurize('MRC_bag_of_words', F['MRC_bag_of_words'], test_ids, project.CoreNLP.tokens_with_key(CoreNLP_test_data), binary=True)
+      ,features.featurize('dependency_relations', F['dependency_relations'], test_ids, CoreNLP_test_data, binary=True)
+      ,features.featurize('production_rules', F['production_rules'], test_ids, CoreNLP_test_data, binary=True)
     ])
 
     return M.predict(X)

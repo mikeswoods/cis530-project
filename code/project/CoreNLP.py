@@ -138,6 +138,7 @@ def parse_xml(filename):
     dicts, where each <sentence-data> dict has the following keys:
 
     - 'tokens' : [{'word':str, 'lemma':str, 'POS':str, 'NER':str|None}]
+    - 'dependencies': (str, str, str)
     - 'sentiment' : str
     - 'parse' : str
 
@@ -150,10 +151,12 @@ def parse_xml(filename):
 
         sentence = {
              'tokens': []
+            ,'dependencies': []
             ,'sentiment': s.get('sentiment').lower()
             ,'parse': s.find('.//parse').text
         }
 
+        # Tokens in the sentence:
         for t in s.findall('.//token'):
 
             word    = t.find('word').text.lower()
@@ -165,6 +168,15 @@ def parse_xml(filename):
 
             data = {'word':word, 'lemma':lemma, 'pos':pos_tag, 'ner':ner_tag}
             sentence['tokens'].append(data)
+
+        # Dependencies in the sentence:
+        for dep in s.findall(".//dependencies[@type='basic-dependencies']/dep"):
+            dep_type  = dep.get('type').lower()
+            governor  = dep.find('governor').text.lower()
+            dependent = dep.find('dependent').text.lower()
+
+            data = (dep_type, governor, dependent)
+            sentence['dependencies'].append(data)
 
         sentences.append(sentence)
 

@@ -234,6 +234,19 @@ accuracy. The text of each lead was tokenized, converted to lowercase and
 stripped of stop words. The benefit of using this approach is that the
 dictionary is independent of the task and training data (Nenkova and Yang).
 
+% === Dependency relations--binary bag-of-words ===
+\paragraph{\textbf{(6) Dependency relations--binary bag-of-words}}
+
+\hfill \newline \noindent \textit{4923 dimensions}. 
+The MRC Psycholinguistic database word dictionary consisting of $4,923$ words
+was used to construct a binary bag-of-words model in a similar manner to the
+CoreNLP binary bag-of-words model. We also attempted counts normalized by length
+of lead, however there did not appear to be a significant difference in
+accuracy. The text of each lead was tokenized, converted to lowercase and
+stripped of stop words. The benefit of using this approach is that the
+dictionary is independent of the task and training data (Nenkova and Yang).
+
+
 %------------------------------------------------
 
 \subsection{Models}
@@ -384,12 +397,12 @@ given in section 2.3.
 \begin{center}
     \begin{tabular}{| c | c | l | l|}
     \hline
-    Attempt & Accuracy  & Model               & Feature sets                         \\ \hline
-    1       & $75.6\%$  & Logistic regression & $1$, $2$, $3$                        \\ \hline
-    2       & $76.0\%$  & Logistic regression /w PCA &  $2$, $3$, $4$, $5$ \\ \hline
-    3       & $78.4\%$  & Ensemble classifier &$2$, $3$, $4$, $5$                    \\ \hline
-    4       & $78.4\%$  & Ensemble classifier & $1$, $2$, $3$, $4$, $5$              \\ \hline
-    5       & --  & --  & --            \\ \hline
+    Attempt & Accuracy  & Model               & Feature sets    \\ \hline
+    1       & $75.6\%$  & Logistic regression  & $1$, $2$, $3$  \\ \hline
+    2       & $76.0\%$  & Logistic regression /w PCA(n=500)+gridsearch &  $2$, $3$, $4$, $5$ \\ \hline
+    3       & $78.4\%$  & Ensemble classifier (LR+SVM+NB) &$2$, $3$, $4$, $5$       \\ \hline
+    4       & $78.4\%$  & Ensemble classifier (LR+SVM+NB) & $1$, $2$, $3$, $4$, $5$ \\ \hline
+    5       & --        & Ensemble classifier (LR+SVM+NB) & $2$, $3$, $4$, $5$, $6$ \\ \hline
     \end{tabular}
 \end{center}
 
