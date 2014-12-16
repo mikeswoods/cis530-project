@@ -236,16 +236,14 @@ dictionary is independent of the task and training data (Nenkova and Yang).
 
 % === Dependency relations--binary bag-of-words ===
 \paragraph{\textbf{(6) Dependency relations--binary bag-of-words}}
-
-\hfill \newline \noindent \textit{4923 dimensions}. 
-The MRC Psycholinguistic database word dictionary consisting of $4,923$ words
-was used to construct a binary bag-of-words model in a similar manner to the
-CoreNLP binary bag-of-words model. We also attempted counts normalized by length
-of lead, however there did not appear to be a significant difference in
-accuracy. The text of each lead was tokenized, converted to lowercase and
-stripped of stop words. The benefit of using this approach is that the
-dictionary is independent of the task and training data (Nenkova and Yang).
-
+\hfill \newline \noindent \textit{5000 dimensions}. 
+For each lead file in the training set, the <dep></dep> nodes were extracted 
+from the corresponding CoreNLP XML files and converted to a 3-tuple consisting 
+of the dependency relation type, the governor word, and the dependent word. 
+Each tuple instance was counted, and the top 5000 dependency tuples were used 
+to build a bag-of-words vector in much the same manner as features (1), (4)
+and (5). Constructing the feature vector for a given lead proceeded in much the
+same manner as (5) as well. 
 
 %------------------------------------------------
 
@@ -380,7 +378,7 @@ have been made, the framework provides basic reporting information regarding
 the accuracy, precision, and F-score of the results.
 
 %-------------------------------------------------------------------------------
-% Experiments and Outcomes
+% Outcomes
 %-------------------------------------------------------------------------------
 \break
 \section{Outcomes}
@@ -397,13 +395,26 @@ given in section 2.3.
 \begin{center}
     \begin{tabular}{| c | c | l | l|}
     \hline
-    Attempt & Accuracy  & Model               & Feature sets    \\ \hline
-    1       & $75.6\%$  & Logistic regression  & $1$, $2$, $3$  \\ \hline
-    2       & $76.0\%$  & Logistic regression /w PCA(n=500)+gridsearch &  $2$, $3$, $4$, $5$ \\ \hline
-    3       & $78.4\%$  & Ensemble classifier (LR+SVM+NB) &$2$, $3$, $4$, $5$       \\ \hline
-    4       & $78.4\%$  & Ensemble classifier (LR+SVM+NB) & $1$, $2$, $3$, $4$, $5$ \\ \hline
-    5       & --        & Ensemble classifier (LR+SVM+NB) & $2$, $3$, $4$, $5$, $6$ \\ \hline
+    Attempt & Accuracy & Model               & Feature sets    \\ \hline
+    1       & $75.6\%$ & Logistic regression  & $1$, $2$, $3$  \\ \hline
+    2       & $76.0\%$ & Logistic regression /w PCA(n=500)+gridsearch &  $2$, $3$, $4$, $5$ \\ \hline
+    3       & $78.4\%$ & Ensemble classifier (LR+SVM+NB) &$2$, $3$, $4$, $5$       \\ \hline
+    4       & $78.4\%$ & Ensemble classifier (LR+SVM+NB) & $1$, $2$, $3$, $4$, $5$ \\ \hline
+    5       & $79.6\%$ & Ensemble classifier (LR+SVM+NB) & $2$, $3$, $4$, $5$, $6$ \\ \hline
     \end{tabular}
 \end{center}
+
+%-------------------------------------------------------------------------------
+% Discussion of Results and Conclusion
+%-------------------------------------------------------------------------------
+\section{Discussion of Results and Conclusion}
+
+Overall, we are quite pleased with our results. Each test submission either 
+resulted in a higher accuracy, or at the very least the same score. We believe
+this is due to the design of our system which allowed for quick a 
+test--prototype--report cycle of various model and feature configurations
+
+
+
 
 \end{document}
