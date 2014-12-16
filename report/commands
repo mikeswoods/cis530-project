@@ -1,5 +1,0 @@
-/home1/c/cis530/hw2/srilm/ngram-count -unk -tolower -order 9 cdiscount 0.75 -interpolate -text /home1/w/wagners/nlp/cis530-project/data/all_training_data.txt -lm myfile
-home1/c/cis530/hw2/srilm/ngram-count -unk -tolower -order 2 cdiscount 0.75 -interpolate -text /home1/w/wagners/nlp/cis530-project/data/all_training_data.txt -lm 2gram
-/home1/c/cis530/hw2/srilm/ngram-count -unk -tolower -order 3 cdiscount 0.75 -interpolate -text /home1/w/wagners/nlp/cis530-project/data/all_training_data.txt -lm 3gram
-/home1/c/cis530/hw2/srilm/ngram-count -unk -tolower -order 4 cdiscount 0.75 -interpolate -text /home1/w/wagners/nlp/cis530-project/data/all_training_data.txt -lm 4gram
-/home1/c/cis530/hw2/srilm/ngram-count -unk -tolower -order 5 cdiscount 0.75 -interpolate -text /home1/w/wagners/nlp/cis530-project/data/all_training_data.txt -lm 5gram
