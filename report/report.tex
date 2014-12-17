@@ -101,8 +101,8 @@ information dense or sparse as primarilty a machine learning problem. As with
 most problems that can be addressed with the methodologies of machine learning,
 having some knowledge of the domain--in this case text classification--can 
 provide useful insights when selecting and extract features from raw data. With 
-the approaches we learned in CIS530 regarding the analysis of a text and
-its structural componnts, along with our own intuitions and experimental 
+the approaches we learned in CIS530 regarding the analysis of the structural
+components of text, along with our own intuitions and experimental 
 insights, we outline the various features, tooling, and resources we employed 
 for the project below.
 
@@ -113,9 +113,9 @@ for the project below.
 \hfill \newline \noindent \url{http://websites.psychology.uwa.edu.au/school/MRCDatabase/uwa_mrc.htm}
 \hfill \newline \noindent The MRC Psycholinguistic Database is a machine readable
 dictionary containing a number of linguistic and psycholinguistic
-attributes and annotation for each word \footnote{\url{http://www.psych.rl.ac.uk/}}. 
-Specifically, we primarily made use of the 4,923 lexicon included in the MRC 
-distribution.
+attributes for each word \footnote{\url{http://www.psych.rl.ac.uk/}}. 
+Specifically, we primarily made use of the 4,923 word base lexicon included in 
+the MRC distribution.
 
 % === Linguistic Inquiry and Word Count (LIWC) ===
 \paragraph{\textbf{Linguistic Inquiry and Word Count (LIWC)}}
@@ -133,8 +133,8 @@ speeches, poems, or transcribed daily speech''
 \hfill \newline \noindent \url{http://nlp.stanford.edu/software/corenlp.shtml}
 \hfill \newline \noindent A suite of text processing tools capable of part-of-
 speech (POS) tagging, named entity recognition (NER), tokenization,
-lemmatization, sentiment analysis, as well as dependency and syntactic parse
-extraction.
+lemmatization, sentiment analysis, as well as dependency relation and 
+syntactic parse extraction.
 
 % === scikit-learn ===
 \paragraph{\textbf{scikit-learn}}
@@ -145,15 +145,15 @@ implementations for a large selection of popular classifiers.
 % === NumPy ===
 \paragraph{\textbf{NumPy}}
 \hfill \newline \noindent \url{http://www.numpy.org}
-\hfill \newline \noindent A scientific computing package for Python providing
+\hfill \newline \noindent A scientific computing package for Python providing a
 native n-dimensional array datatype, as well as various linear algebra,
-statistical, and general mathematical functions suitable for ``''number
+statistical, and general mathematical functions suitable for ``number
 crunching''.
 
 % === NLTK ===
 \paragraph{\textbf{NLTK}}
 \hfill \newline \noindent \url{http://www.nltk.org/} 
-\hfill \newline \noindent A popular Python library for working with natural 
+\hfill \newline \noindent A Python library for working with natural 
 language that includes a number of convenient text processing tools and built 
 in corpora for multiple languages.
 
@@ -169,7 +169,7 @@ classification.
 \paragraph{\textbf{(1) CoreNLP word count--binary bag-of-words}}
 \hfill \newline \noindent \textit{9799 dimensions}. All unique tokens occurring
 between \texttt{<word></word>} tags in the generated XML obtained from running
-all training and test files through the CoreNLP tool were collected into a list
+all training files through the CoreNLP tool were collected into a list
 and converted to lowercase. Any tokens consisting of stop words, as defined by
 NLTK's English stop word list or punctuation characters were removed. The list
 was then sorted alphabetically in ascending order and each word was assigned an
@@ -204,7 +204,8 @@ information dense. We thought these might be positively correlated with
 information density: present tense, numbers, impersonal pronouns, and causation.
 We also believed multiple attributes may be negatively correlated, including:
 1st person usage, auxillary verbs and past tense, quantifiers, and positive and
-negative emotion.
+negative emotion. For a listing of the data points in the LIWC, refer to the
+table at \url{http://www.liwc.net/comparedicts.php}.
 
 % === CoreNLP production rule count--binary bag-of-words ===
 \paragraph{\textbf{(4) CoreNLP production rule count--binary bag-of-words}}
@@ -214,7 +215,7 @@ corresponding \texttt{<parse></parse>} tag in the corresponding XML file. A
 parse tree is constructed in the same manner as described in Homework 3, where
 only non- terminal nodes are considered. To construct the master list of
 production rules, the outlined process is repeated for every lead file in the
-training and test set and every unique production rule is collected into a list.
+training set and every unique production rule is collected into a list.
 Each rule is then assigned an index, $0$ to $N-1$, where N is the number of
 unique production rules. Then, to construct a feature vector for a given lead, a
 $1 x N$ vector of zeros is created and every production rule occurring in the
@@ -243,7 +244,9 @@ of the dependency relation type, the governor word, and the dependent word.
 Each tuple instance was counted, and the top 5000 dependency tuples were used 
 to build a bag-of-words vector in much the same manner as features (1), (4)
 and (5). Constructing the feature vector for a given lead proceeded in much the
-same manner as (5) as well. 
+same manner as (5) as well. Like (4), we believed that certain dependency
+relations are significantly more prevalent in information dense articles than
+sparse ones.
 
 %------------------------------------------------
 
@@ -270,7 +273,7 @@ configurations are as follows:
 %-------------------------------------------------------------------------------
 % Final system
 %-------------------------------------------------------------------------------
-\break
+
 \section{Final system}
 
 \subsection{Team}
@@ -282,14 +285,15 @@ We are team ``$W^2$'', or as it appears on the leaderboard in ASCII,
 
 From the very onset of the project, we exercised great discipline in producing
 what we believe to a clean, extensible system for making predictions about text.
-The software could easily have been treated as disposable--and designed as such
---since the predictions produced by the system are ultimately the real value and
-not the software itself. Our rationale for putting a large, up-front effort into
-properly designing a data pipeline was to introduce a lower mental overhead cost
-when quickly iterating various featuresets and models as the project progressed.
-The effort paid of many times over, as creating new models and features was the
-same as defining a new Python module. The model or feature could then later be
-referred to by name and maniupulated through set of generic functions.
+The software could easily have been treated as disposable---and designed as such
+---since the predictions produced by the system are ultimately the real value
+and not the software itself. Our rationale for putting a large, up-front effort
+into properly designing a data pipeline was to introduce a lower mental overhead
+cost when attempting to quickly evaluate the effectiveness of various
+featuresets and models as the project progressed. The effort paid off many times
+over, as creating new models and features was the same as defining a new Python
+module. The model or feature could then later be referred to by name and
+manipulated through set of generic functions.
 
 \subsection{Models}
 
@@ -319,7 +323,8 @@ def get_model(name):
 \subsection{Features}
 
 \noindent Much like models, features are also implemented as Python modules, as
-this allows for quick prototyping and iterative refirement of new feature types.
+this allows for quick prototyping and iterative refinement of new feature types.
+\\
 
 \noindent In a similar manner to models described above, features (or more
 accurately feature-izers) can easily be resolved with the following function:
@@ -329,7 +334,7 @@ def get_feature(name): return
     importlib.import_module('project.features.'+name)
 \end{Verbatim}
 
-\noindent Features can also expose the following functions
+\noindent Features can also expose the following functions:
 
 \begin{Verbatim}[frame=single]
 def build(feature_name, *args, **kwargs)
@@ -384,7 +389,7 @@ the accuracy, precision, and F-score of the results.
 \section{Outcomes}
 
 All experiments were conducted using the \texttt{scikit-learn} 
-\texttt{cross\_validation.train\_test\_split()}, function with $10\%$ of
+\texttt{cross\_validation.train\_test\_split}, function with $10\%$ of
 the training data held out as the test set. \\
 
 \noindent The all submission configurations and related results are 
@@ -409,12 +414,62 @@ given in section 2.3.
 %-------------------------------------------------------------------------------
 \section{Discussion of Results and Conclusion}
 
-Overall, we are quite pleased with our results. Each test submission either 
-resulted in a higher accuracy, or at the very least the same score. We believe
-this is due to the design of our system which allowed for quick a 
-test--prototype--report cycle of various model and feature configurations
+Overall, we are quite pleased with our results. Each test submission resulted in
+either the same or a higher level of predictive accuracy. We believe this is due
+to the design of our system which allowed for quick a test--prototype--report
+cycle of various model and feature configurations, which in turn encouraged
+experimentation.
 
+\subsection{Analysis of feature performance}
+All told, we developed seven different feature sets: 
+\begin{enumerate}
+	\item \texttt{[CoreNLP word count;binary bag-of-words]} 
+	\item \texttt{[CoreNLP word count;TDIDF normalized bag-of-words]} 
+	\item \texttt{[CoreNLP sentence information]} 
+	\item \texttt{[LIWC]}
+	\item \texttt{[CoreNLP production rule count;binary bag-of-words]}
+	\item \texttt{[MRC dictionary;binary bag-of-words]}
+	\item \texttt{[Dependency relations;binary bag-of-words]}
+\end{enumerate}
 
+\subsubsection{The good}
+Of the above features, \texttt{[CoreNLP sentence information]},
+\texttt{[LIWC]}, \texttt{[CoreNLP production rule count;binary bag-of-words]}, 
+\texttt{[MRC dictionary;binary bag-of-words]}, 
+and \texttt{[Dependency relations:binary bag-of-words]} performed very well,
+usually achieving a prediction accuracy in the $80-85\%$ range when each
+featureset was used to make predictions in isolation with a logistic regression
+classifier. When used together in the ensemble model, the predictive accuracy
+spanned $80-89\%$ when running against a cross-validated test set.
+
+\subsubsection{The not-so-good}
+While the performance of the featureset \texttt{[CoreNLP word count;binary bag-
+of-words]} was not terrible, it was not great either. When used as a feature set
+in isolation with a logistic regression classifier, prediction accuracies
+generally failed to break $75\%$. This could be due to the fact that a binary
+bag-of-words model regarding the distribution of information dense/sparse
+articles is simply just not that informative, meaning the words that appeared in
+information dense and information sparse articles were not different enough to
+act as a good discriminative metric.
+
+\subsubsection{The bad}
+The \texttt{[CoreNLP word count;TDIDF normalized bag-of-words]} featureset
+consistently performed the worst, routinely failing to break $70\%$ during
+testing and achieving an average perdiction accuracy in the $60-65\%$ range. The
+poor performance of this featureset was probably due to similar reasons as that
+of the \texttt{[CoreNLP word count;binary bag-of-words]} featureset, combined
+with a potential error in the implementation.
+
+\subsection{Keys to success}
+
+The ensemble model, we believe, allowed our system to outperform most other 
+teams, even when using similar feature sets. The intuition behind the success 
+of such an approach is straightforward: when in doubt, seek multiple opinions in
+order to come to an answer. The trade-offs when using an ensemble approach to
+prediction are mostly related to time--instead of training a single classifier,
+three, five, etc. classifiers need to be trained instead. Also, it is necessary
+to use an odd number of classifiers that achieve roughly the same level of
+predictive accuracy when used with the same feature set.
 
 
 \end{document}
