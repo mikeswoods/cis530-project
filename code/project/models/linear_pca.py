@@ -52,7 +52,7 @@ def train(train_files, train_ids, Y, CoreNLP_train_data, CoreNLP_test_data, F, *
     ])
 
     pca = PCA()
-    M   = LogisticRegression(class_weight={1: 0.58, -1:0.42})
+    M   = LogisticRegression()
 
     info("> Running PCA...")
     pca.fit(X)

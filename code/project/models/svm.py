@@ -45,7 +45,7 @@ def train(train_files, train_ids, Y, CoreNLP_train_data, CoreNLP_test_data, F, *
       ,features.featurize('production_rules', F['production_rules'], train_ids, CoreNLP_train_data, binary=True)
     ]))
 
-    M = svm.LinearSVC(class_weight={1: 0.58, -1: 0.42})
+    M = svm.LinearSVC()
     M.fit(X, Y)
 
     return (M,)

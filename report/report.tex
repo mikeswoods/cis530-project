@@ -20,6 +20,7 @@ headinclude,footinclude, % Extra spacing for the header and footer
 BCOR5mm, % Binding correction
 ]{scrartcl}
 \usepackage{fancyvrb}
+\usepackage{tabularx}
 \input{structure.tex} 
 
 \hyphenation{Fortran hy-phen-ation}
@@ -259,15 +260,9 @@ classification models using the features described above. The model
 configurations are as follows:
 
 \begin{itemize}
-	\item Logistic regression with a L2 penalty and class weights $1$: $0.58$ and
-	$-1$: $0.42$ set to reflect the true distribution of labels in the test set.
-
-	\item Linear SVM with L2 loss and penalty functions and class 
-	weights $1$: $0.58$ and $-1$: $0.42$ set to reflect the true distribution of
-	labels in the test set.
-
+	\item Logistic regression with a L2 penalty.
+	\item Linear SVM with L2 loss and penalty functions.
 	\item Bernoulli naive bayes with default parameters.
-
 	\item Ensemble method with the three classifiers described above. Each 
 	classifier makes a prediction for a given observation and a majority vote is
 	taken to determine the final predicted label.
@@ -407,9 +402,10 @@ given in section 2.3.
     Attempt & Accuracy & Model               & Feature sets    \\ \hline
     1       & $75.6\%$ & Logistic regression  & $1$, $2$, $3$  \\ \hline
     2       & $76.0\%$ & Logistic regression /w PCA(n=500)+gridsearch &  $2$, $3$, $4$, $5$ \\ \hline
-    3       & $78.4\%$ & Ensemble classifier (LR+SVM+NB) &$2$, $3$, $4$, $5$       \\ \hline
-    4       & $78.4\%$ & Ensemble classifier (LR+SVM+NB) & $1$, $2$, $3$, $4$, $5$ \\ \hline
-    5       & $79.6\%$ & Ensemble classifier (LR+SVM+NB) & $2$, $3$, $4$, $5$, $6$ \\ \hline
+    3       & $78.4\%$ & Ensemble (LR+SVM+NB) (tainted w/ class weights) &$2$, $3$, $4$, $5$       \\ \hline
+    4       & $78.4\%$ & Ensemble (LR+SVM+NB) (tainted w/ class weights) & $1$, $2$, $3$, $4$, $5$ \\ \hline
+    5       & $79.6\%$ & Ensemble (LR+SVM+NB) (tainted w/ class weights) & $2$, $3$, $4$, $5$, $6$ \\ \hline
+    6       & $79.2\%$ & Ensemble (LR+SVM+NB) amended w/o class weights & $2$, $3$, $4$, $5$, $6$ \\ \hline
     \end{tabular}
 \end{center}
 
@@ -419,7 +415,7 @@ given in section 2.3.
 \section{Discussion of Results and Conclusion}
 
 Overall, we are quite pleased with our results. Each test submission resulted in
-either the same or a higher level of predictive accuracy. We believe this is due
+a general trend of higher predictive accuracy. We believe this is due
 to the design of our system which allowed for quick a test--prototype--report
 cycle of various model and feature configurations, which in turn encouraged
 experimentation.
